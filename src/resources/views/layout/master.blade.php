@@ -189,19 +189,24 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Permissions
+                                </a>
+                            </li>
 
-{{--                        <li class="nav-item dropdown">--}}
-{{--                            <a class="nav-link dropdown-toggle arrow-none" href="{{ route('sensors') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">--}}
-{{--                               Sensors--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        @role('superadmin')--}}
-{{--                            <li class="nav-item dropdown">--}}
-{{--                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('businesses') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                   Business--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        @endrole--}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Organizations
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Devices
+                                </a>
+                            </li>
+
                     </ul>
                 </div>
             </nav>

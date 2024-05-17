@@ -49,4 +49,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notifications::class, 'user_id', 'id');
     }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    public function organization()
+    {
+        return $this->hasOne(Organization::class, 'id', 'organization_id');
+    }
 }

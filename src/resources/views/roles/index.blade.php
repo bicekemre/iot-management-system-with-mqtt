@@ -1,7 +1,8 @@
 @extends('layout.master')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">Users</li>
+    <li class="breadcrumb-item"><a href="{{ route('suers') }}">Users</a></li>
+    <li class="breadcrumb-item active">Roles</li>
 @endsection
 @section('title', 'Users')
 @section('head')
@@ -23,7 +24,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="header-title">Users</h4>
+                    <h4 class="header-title">Roles</h4>
 
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"

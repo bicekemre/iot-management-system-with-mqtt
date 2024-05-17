@@ -88,26 +88,20 @@
                             <label for="role" class="form-label">Role</label>
                             <select id="role" name="role" class="form-control">
                                 <option value="">Select Role</option>
-                                <option value="admin">Admin</option>
-                                <option value="cleaner">Cleaner</option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="business" class="form-label">Business</label>
-                            <select id="business" name="business" class="form-control">
-                                <option value="NULL">Select Business</option>
-                                <option value="0">Super Admin business</option>
+                            <label for="organization" class="form-label">Business</label>
+                            <select id="organization" name="organization" class="form-control">
+                                <option value="NULL">Select Organization</option>
+                                @foreach($organizations as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                                @endforeach
                             </select>
                         </div>
-                        <div class="invalid-feedback" id="business"></div>
-                        <div class="mb-3">
-                            <label for="sensor" class="form-label">Add Sensor</label>
-                            <select id="sensor" name="sensor[]" class="select2 form-control select2-multiple"
-                                    data-toggle="select2"
-                                    multiple="multiple" data-placeholder="Choose ..." multiple>
-                            </select>
-                        </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -139,26 +133,21 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-business" class="form-label">Business</label>
-                            <select id="edit-business" name="edit-business" class="form-control">
-                                <option value="NULL">Select Business</option>
-                                <option value="0">Super Admin business</option>
+                            <label for="edit-organization" class="form-label">Business</label>
+                            <select id="edit-organization" name="edit-organization" class="form-control">
+                                <option value="NULL">Select Organization</option>
+                                @foreach($organizations as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="invalid-feedback" id="business"></div>
                         <div class="mb-3">
                             <label for="edit-role" class="form-label">Role</label>
                             <select id="edit-role" name="role" class="form-control">
-                                <option value="superadmin">Super Admin</option>
-                                <option value="admin">Admin</option>
-                                <option value="cleaner">Cleaner</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit-sensor" class="form-label">Add Sensor</label>
-                            <select id="edit-sensor" name="edit-sensor[]" class="select2 form-control select2-multiple"
-                                    data-toggle="select2"
-                                    multiple="multiple">
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="modal-footer">
@@ -213,7 +202,7 @@
             let limit = $ ( '#limit' ).val () ?? 10;
             $.ajax ( {
                 type: 'GET',
-                url: '/users/data/' + offset + '/' + limit,
+                url: '/users/items/' + offset + '/' + limit,
                 data: { search: search },
                 success: function ( data ) {
                     $ ( '#users-table' ).html ( data );
@@ -232,8 +221,7 @@
                     $('#edit-name').val(data.name);
                     $('#edit-email').val(data.email);
                     $('#edit-role').val(data.role);
-                    $('#edit-business').val(data.business);
-                    $('#edit-sensor').val(data.sensors).trigger('change');
+                    $('#edit-organization').val(data.organization);
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
@@ -256,8 +244,7 @@
                 var email = $('#email').val();
                 var password = $('#password').val();
                 var role = $('#role').val();
-                var sensor = $('#sensor').val();
-                var business = $('#business').val();
+                var organization = $('#organization').val();
 
                 $.ajax({
                     type: 'POST',
@@ -267,8 +254,7 @@
                         email: email,
                         password: password,
                         role: role,
-                        sensor: sensor,
-                        business: business
+                        organization: organization,
                     },
                     success: function(data) {
                         $('#standard-modal').modal('hide');
@@ -302,8 +288,7 @@
                 var name = $('#edit-name').val();
                 var email = $('#edit-email').val();
                 var role = $('#edit-role').val();
-                var sensor = $('#edit-sensor').val();
-                var business = $('#edit-business').val();
+                var organization = $('#edit-organization').val();
                 var row = $('#edit-user-modal').data('row');
 
                 $.ajax({
@@ -313,8 +298,7 @@
                         name: name,
                         email: email,
                         role: role,
-                        sensor: sensor,
-                        business: business
+                        organization: organization,
                     },
                     success: function(data) {
                         $('#edit-user-modal').modal('hide');
