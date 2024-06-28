@@ -1,33 +1,32 @@
 <table id="table" class="table table-striped">
     <thead>
     <tr>
-        <th>User Name</th>
+        <th>Name</th>
         <th>Email</th>
-        <th>Role</th>
-        <th>Organization</th>
+        <th>Address</th>
+        <th>Phone</th>
         <th>Updated At</th>
         <th>Created At</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    @foreach($organizations->items() as $organizations)
+    @foreach($organizations->items() as $organization)
         <tr>
             <td>
-                {{ $organizations->name }}
+                {{ $organization->name }}
             </td>
-            <td> {{ $organizations->email }}</td>
-            <td>{{ $organizations->address }}</td>
-            <td>{{ $organizations->email }}</td>
-            <td>{{ $organizations->phone }}</td>
-            <td>{{ $organizations->updated_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
-            <td>{{ $organizations->created_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
+            <td> {{ $organization->email }}</td>
+            <td>{{ $organization->address }}</td>
+            <td>{{ $organization->phone }}</td>
+            <td>{{ $organization->updated_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
+            <td>{{ $organization->created_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
 
             <td>
-                <a href="" class="text-reset fs-16 px-1 delete-user" data-id="{{ $organizations->id }}">
+                <a href="" class="text-reset fs-16 px-1 delete-organization" data-id="{{ $organization->id }}">
                     <i class="ri-delete-bin-2-line"></i>
                 </a>
-                <a href="#" class="text-reset fs-16 px-1 edit-user" onclick="setUser({{ $organizations->id }})" data-bs-toggle="modal" data-bs-target="#edit-user-modal">
+                <a href="#" class="text-reset fs-16 px-1 edit-organization" data-id="{{ $organization->id }}" data-bs-toggle="modal" data-bs-target="#edit-organization-modal">
                     <i class="ri-edit-2-fill"></i>
                 </a>
             </td>

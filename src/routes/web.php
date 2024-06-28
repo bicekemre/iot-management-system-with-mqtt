@@ -31,4 +31,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/roles/edit/{id}', [\App\Http\Controllers\RoleController::class, 'edit'])->name('roles.edit');
     Route::post('/roles/update/{id}', [\App\Http\Controllers\RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/delete/{id}', [\App\Http\Controllers\RoleController::class, 'delete'])->name('roles.delete');
+
+    Route::get('organizations', [\App\Http\Controllers\OrganizationController::class,'index'])->name('organizations');
+    Route::get('organizations/items/{offset}/{limit}', [\App\Http\Controllers\OrganizationController::class, 'items'])->name('organizations.items');
+    Route::post('organizations/create', [\App\Http\Controllers\OrganizationController::class,'create'])->name('organizations.create');
+    Route::get('/organizations/edit/{id}', [\App\Http\Controllers\OrganizationController::class, 'edit'])->name('organizations.edit');
+    Route::post('/organizations/update/{id}', [\App\Http\Controllers\OrganizationController::class, 'update'])->name('organizations.update');
+    Route::delete('/organizations/delete/{id}', [\App\Http\Controllers\OrganizationController::class, 'delete'])->name('organizations.delete');
+
+    Route::get('devices', [\App\Http\Controllers\DeviceController::class,'index'])->name('devices');
 });

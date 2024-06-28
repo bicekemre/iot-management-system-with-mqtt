@@ -192,13 +192,13 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('organizations') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
                                     Organizations
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('devices') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
                                     Devices
                                 </a>
                             </li>

@@ -1,9 +1,9 @@
 @extends('layout.master')
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">Organizations</li>
+    <li class="breadcrumb-item active">organizations</li>
 @endsection
-@section('title', 'Organizations')
+@section('title', 'organizations')
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -23,11 +23,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="header-title">Organizations</h4>
+                    <h4 class="header-title">organizations</h4>
 
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#standard-modal">Add Organizations
+                            data-bs-target="#standard-modal">Add organizations
                     </button>
                 </div>
             </div>
@@ -48,13 +48,14 @@
                         </div>
                     </div>
 
+
                     <div id="organizations-table">
-                        @include('organizations.data', ['organizations' => $organizations])
+                        @include('organization.data', ['organizations' => $organizations])
                     </div>
                 </div>
                 <!-- end table-responsive-->
-            </div> <!-- end card body-->
 
+            </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
 
@@ -63,21 +64,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="standard-modalLabel">Add Organizations</h4>
+                    <h4 class="modal-title" id="standard-modalLabel">Add organization</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addUserForm">
+                    <form id="addBusinessForm">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                   name="email" value="{{ old('email') }}">
-                            <div class="invalid-feedback"></div>
+                            <label for="email" class="form-label">Email</label>
+                            <input type=email class="form-control " id="email"
+                                   name="email" required>
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone</label>
@@ -85,16 +85,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address">
-                        </div>
-                        <div class="mb-3">
-                            <label for="organization" class="form-label">Organization</label>
-                            <select id="organization" name="organization" class="form-control">
-                                <option value="NULL">Select Organization</option>
-                                @foreach($organizations as $organization)
-                                    <option value="{{ $organization->id }}">{{ $organization->name }}</option>
-                                @endforeach
-                            </select>
+                            <textarea class="form-control " id="address"
+                                      name="address" required></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -111,7 +103,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="edit-organization-modalLabel">Edit Organization</h4>
+                    <h4 class="modal-title" id="edit-organization-modalLabel">Edit organization</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -119,30 +111,21 @@
                         <input type="hidden" id="edit-organization-id">
                         <div class="mb-3">
                             <label for="edit-name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="edit-name" name="name">
+                            <input type="text" class="form-control" id="edit-name" name="edit-name">
                         </div>
                         <div class="mb-3">
-                            <label for="edit-email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="edit-email" name="email">
-                            <div class="invalid-feedback"></div>
+                            <label for="edit-email" class="form-label">Email</label>
+                            <input type=email class="form-control " id="edit-email"
+                                   name="edit-email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-organization" class="form-label">Business</label>
-                            <select id="edit-organization" name="edit-organization" class="form-control">
-                                <option value="NULL">Select Organization</option>
-                                @foreach($organizations as $organization)
-                                    <option value="{{ $organization->id }}">{{ $organization->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="edit-phone" class="form-label">Phone</label>
+                            <input type="number" class="form-control" id="edit-phone" name="edit-phone">
                         </div>
-                        <div class="invalid-feedback" id="business"></div>
                         <div class="mb-3">
-                            <label for="edit-role" class="form-label">Role</label>
-                            <select id="edit-role" name="role" class="form-control">
-                                @foreach($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="edit-address" class="form-label">Address</label>
+                            <textarea class="form-control " id="edit-address"
+                                      name="edit-address" required></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -192,53 +175,31 @@
 
     <script>
         function getData(offset = 1) {
-            let search = $ ( '#search' ).val ();
-            let limit = $ ( '#limit' ).val () ?? 10;
-            $.ajax ( {
+            let search = $('#search').val();
+            let limit = $('#limit').val() ?? 10;
+            $.ajax({
                 type: 'GET',
                 url: '/organizations/items/' + offset + '/' + limit,
                 data: { search: search },
-                success: function ( data ) {
-                    $ ( '#organizations-table' ).html ( data );
-                },
-            } );
-        }
-
-        function setUser(userId) {
-            $.ajax({
-                type: 'GET',
-                url: '/organizations/edit/' + userId,
                 success: function(data) {
-
-                    $('#edit-organization-form').attr('action', '/organizations/update/' + userId);
-                    $('#edit-organization-id').val(userId)
-                    $('#edit-name').val(data.name);
-                    $('#edit-email').val(data.email);
-                    $('#edit-role').val(data.role);
-                    $('#edit-organization').val(data.organization);
+                    $('#organizations-table').html(data);
                 },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    $('#danger-alert-modal').modal('show');
-                }
             });
         }
 
 
         $(document).ready(function() {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $('#addUserForm').submit(function(e) {
+            $('#addBusinessForm').submit(function(e) {
                 e.preventDefault();
                 var name = $('#name').val();
                 var email = $('#email').val();
-                var password = $('#password').val();
-                var role = $('#role').val();
-                var organization = $('#organization').val();
+                var phone = $('#phone').val();
+                var address = $('#address').val();
 
                 $.ajax({
                     type: 'POST',
@@ -246,9 +207,8 @@
                     data: {
                         name: name,
                         email: email,
-                        password: password,
-                        role: role,
-                        organization: organization,
+                        phone: phone,
+                        address: address,
                     },
                     success: function(data) {
                         $('#standard-modal').modal('hide');
@@ -256,21 +216,39 @@
                         $('.modal-backdrop').remove();
                         $('#success-alert-modal').modal('show');
                         getData();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+
+                        $('#danger-alert-modal').modal('show');
+
+                    }
+                });
+            });
+
+
+
+            $('.edit-organization').click(function(e) {
+                e.preventDefault();
+                var organizationId = $(this).data('id');
+                var row = $(this).closest('tr');
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/organizations/edit/' + organizationId,
+                    success: function(data) {
+                        $('#edit-organization-form').attr('action', '/organizations/update/' + organizationId);
+                        $('#edit-organization-id').val(organizationId)
+                        $('#edit-name').val(data.name);
+                        $('#edit-email').val(data.email);
+                        $('#edit-phone').val(data.phone);
+                        $('#edit-address').val(data.address);
+                        $('#edit-organization-modal').data('row', row);
 
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
-                        var errors = xhr.responseJSON.errors;
-                        if (errors && errors.email) {
-                            $('#email').addClass('is-invalid');
-                            $('#email + .invalid-feedback').html(errors.email[0]);
-                            $('#password').addClass('is-invalid');
-                            $('#password + .invalid-feedback').html(errors.password[0]);
-                        }else{
-                            $('#danger-alert-modal').modal('show');
-
-                        }
-
+                        $('#danger-alert-modal').modal('show');
                     }
                 });
             });
@@ -278,21 +256,21 @@
 
             $('#edit-organization-form').submit(function (e) {
                 e.preventDefault();
-                var userId = $('#edit-organization-id').val()
+                var organizationId = $('#edit-organization-id').val()
                 var name = $('#edit-name').val();
                 var email = $('#edit-email').val();
-                var role = $('#edit-role').val();
-                var organization = $('#edit-organization').val();
+                var phone = $('#edit-phone').val();
+                var address = $('#edit-address').val();
                 var row = $('#edit-organization-modal').data('row');
 
                 $.ajax({
                     type: 'POST',
-                    url: '/organizations/update/' + userId,
+                    url: '/organizations/update/' + organizationId,
                     data: {
                         name: name,
                         email: email,
-                        role: role,
-                        organization: organization,
+                        phone: phone,
+                        address: address,
                     },
                     success: function(data) {
                         $('#edit-organization-modal').modal('hide');
@@ -305,13 +283,7 @@
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
                         var errors = xhr.responseJSON.errors;
-                        if (errors && errors.email) {
-                            $('#email').addClass('is-invalid');
-                            $('#email + .invalid-feedback').html(errors.email[0]);
-                        }else{
-                            $('#danger-alert-modal').modal('show');
-                        }
-
+                        $('#danger-alert-modal').modal('show');
                     }
                 });
             });
@@ -319,12 +291,12 @@
 
             $('.delete-organization').click(function(e) {
                 e.preventDefault();
-                var userId = $(this).data('id');
+                var organizationId = $(this).data('id');
                 var row = $(this).closest('tr');
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '/organizations/delete/' + userId,
+                    url: '/organizations/delete/' + organizationId,
                     success: function(data) {
                         row.remove();
                         $('#success-alert-modal').modal('show');
@@ -338,7 +310,6 @@
         });
 
     </script>
-    <!-- Vendor js -->
 
     <!--  Select2 Plugin Js -->
     <script src="assets/vendor/select2/js/select2.min.js"></script>
