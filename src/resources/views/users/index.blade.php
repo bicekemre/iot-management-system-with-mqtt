@@ -94,7 +94,7 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="organization" class="form-label">Business</label>
+                            <label for="organization" class="form-label">Organization</label>
                             <select id="organization" name="organization" class="form-control">
                                 <option value="NULL">Select Organization</option>
                                 @foreach($organizations as $organization)
@@ -284,7 +284,7 @@
 
             $('#edit-user-form').submit(function (e) {
                 e.preventDefault();
-                var userId = $('#edit-user-id').val()
+                var userId = $('#edit-user-id').val();
                 var name = $('#edit-name').val();
                 var email = $('#edit-email').val();
                 var role = $('#edit-role').val();

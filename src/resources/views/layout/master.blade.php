@@ -12,6 +12,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
+
+
     <!-- Daterangepicker css -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/daterangepicker/daterangepicker.css') }}">
 
@@ -27,8 +29,8 @@
     <!-- Icons css -->
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-
     @yield('head')
+
 </head>
 
 <body>
@@ -186,12 +188,6 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="{{ route('roles') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
                                     <i class="ri-user-fill"></i>Roles
-                                </a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Permissions
                                 </a>
                             </li>
 
