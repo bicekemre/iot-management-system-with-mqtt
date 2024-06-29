@@ -40,4 +40,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/organizations/delete/{id}', [\App\Http\Controllers\OrganizationController::class, 'delete'])->name('organizations.delete');
 
     Route::get('devices', [\App\Http\Controllers\DeviceController::class,'index'])->name('devices');
+    Route::get('devices/items/{offset}/{limit}', [\App\Http\Controllers\DeviceController::class, 'items'])->name('device.items');
+    Route::post('devices/create', [\App\Http\Controllers\DeviceController::class,'create'])->name('devices.create');
+    Route::get('/devices/edit/{id}', [\App\Http\Controllers\DeviceController::class, 'edit'])->name('devices.edit');
+    Route::post('/devices/update/{id}', [\App\Http\Controllers\DeviceController::class, 'update'])->name('devices.update');
+    Route::delete('/devices/delete/{id}', [\App\Http\Controllers\DeviceController::class, 'delete'])->name('devices.delete');
+
 });

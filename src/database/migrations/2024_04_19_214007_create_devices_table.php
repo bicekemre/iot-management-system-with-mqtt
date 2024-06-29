@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('uuid')->unique();
-            $table->string('crop');
-            $table->string('stage');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('type_id')->constrained('type_id');
             $table->foreignId('organization_id');
             $table->timestamps();
             $table->softDeletes();

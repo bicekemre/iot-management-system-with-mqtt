@@ -130,6 +130,11 @@
       <path value="$PROJECT_DIR$/src/vendor/laravel/framework" />
       <path value="$PROJECT_DIR$/src/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/src/vendor/spatie/laravel-permission" />
+      <path value="$PROJECT_DIR$/src/vendor/livewire/livewire" />
+      <path value="$PROJECT_DIR$/src/vendor/livewire/volt" />
+      <path value="$PROJECT_DIR$/src/vendor/laravel/breeze" />
+      <path value="$PROJECT_DIR$/src/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/src/vendor/spatie/error-solutions" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
