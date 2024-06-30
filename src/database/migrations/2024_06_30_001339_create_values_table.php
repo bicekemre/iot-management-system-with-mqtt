@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('properties', function (Blueprint $table) {
+        Schema::create('values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_id');
-            $table->string('name');
+            $table->foreignId('device_id');
+            $table->foreignId('property_id');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('properties');
+        Schema::dropIfExists('values');
     }
 };

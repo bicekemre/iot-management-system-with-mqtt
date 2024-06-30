@@ -46,4 +46,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/devices/update/{id}', [\App\Http\Controllers\DeviceController::class, 'update'])->name('devices.update');
     Route::delete('/devices/delete/{id}', [\App\Http\Controllers\DeviceController::class, 'delete'])->name('devices.delete');
 
+    Route::get('types', [\App\Http\Controllers\TypeController::class,'index'])->name('types');
+    Route::get('type/items/{offset}/{limit}', [\App\Http\Controllers\TypeController::class, 'items'])->name('type.items');
+    Route::post('type/create', [\App\Http\Controllers\TypeController::class,'create'])->name('type.create');
+    Route::get('/type/edit/{id}', [\App\Http\Controllers\TypeController::class, 'edit'])->name('type.edit');
+    Route::post('/type/update/{id}', [\App\Http\Controllers\TypeController::class, 'update'])->name('type.update');
+    Route::delete('/type/delete/{id}', [\App\Http\Controllers\TypeController::class, 'delete'])->name('type.delete');
+
 });

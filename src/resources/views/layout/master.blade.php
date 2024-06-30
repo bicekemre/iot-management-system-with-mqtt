@@ -203,6 +203,12 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('types') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Device Type
+                                </a>
+                            </li>
+
                     </ul>
                 </div>
             </nav>

@@ -9,8 +9,15 @@ class Property extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function device()
     {
-        return $this->hasOne(Devices::class, 'id', 'device_id');
+        return $this->belongsTo(Devices::class);
+    }
+
+    public function values()
+    {
+        return $this->hasMany(Value::class);
     }
 }
