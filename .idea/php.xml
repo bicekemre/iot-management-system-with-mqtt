@@ -135,6 +135,9 @@
       <path value="$PROJECT_DIR$/src/vendor/laravel/breeze" />
       <path value="$PROJECT_DIR$/src/vendor/laravel/sanctum" />
       <path value="$PROJECT_DIR$/src/vendor/spatie/error-solutions" />
+      <path value="$PROJECT_DIR$/src/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/src/vendor/php-mqtt/client" />
+      <path value="$PROJECT_DIR$/src/vendor/php-mqtt/laravel-client" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

@@ -36,6 +36,13 @@ class DeviceController extends Controller
         return view('devices.data', compact('devices'));
     }
 
+    public function item($id)
+    {
+        $device = Devices::query()->findOrFail($id)->load('values.property');
+
+        return response()->json($device);
+    }
+
     public function create(Request $request)
     {
         $device = new Devices();

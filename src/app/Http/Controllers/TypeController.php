@@ -63,7 +63,7 @@ class TypeController extends Controller
 
 
         foreach ($currentProperties as $propertyId) {
-            $property = Property::find($propertyId);
+            $property = Property::findOrFail($propertyId);
             if ($property) {
                 $property->values()->delete();
                 $property->delete();

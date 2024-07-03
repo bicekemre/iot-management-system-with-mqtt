@@ -5,6 +5,7 @@
         <th>UUID</th>
         <th>Type</th>
         <th>Organization</th>
+        <th>Parameters</th>
         <th>Updated At</th>
         <th>Created At</th>
         <th>Action</th>
@@ -19,6 +20,9 @@
             <td> {{ $device->uuid }}</td>
             <td>{{ $device->type->name ?? '' }}</td>
             <td>{{ $device->organization->name ?? '' }}</td>
+            <td>
+                <button type="button" class="btn btn-info" onclick="getDevice({{$device->id}})" data-bs-toggle="modal" data-bs-target="#device-modal">See Device</button>
+            </td>
             <td>{{ $device->updated_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
             <td>{{ $device->created_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
 
@@ -52,3 +56,56 @@
     @endif
 </ul>
 
+<div class="modal fade" id="device-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="device-name"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="device-item" class="table">
+                    <thead>
+                        <tr>
+                            <th>Property Name</th>
+                            <th>Property Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="property-area">
+
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    function getDevice(deviceId)
+    {
+        $('#property-area').empty();
+
+        $.ajax({
+
+            type: 'GET',
+            url: '/devices/item/' + deviceId,
+            success: function ( data ){
+                $('#device-name').text(data.name);
+                data.values.forEach(function ( value ){
+                    let propertyData = `
+                        <tr>
+                            <th>${value.property.name}</th>
+                            <th>${value.value}</th>
+                        </tr>
+
+                    `;
+                    $('#property-area').append(propertyData);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                $('#danger-alert-modal').modal('show');
+            }
+        });
+    }
+</script>

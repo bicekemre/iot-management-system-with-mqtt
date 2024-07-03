@@ -21,6 +21,10 @@ class Devices extends Model
 
     public function properties()
     {
-        return $this->hasMany(Property::class, 'device_id', 'id');
+        return $this->type()->properties()->hasMany(Value::class, 'device_id', 'id');
+    }
+    public function values()
+    {
+        return $this->hasMany(Value::class, 'device_id', 'id');
     }
 }
