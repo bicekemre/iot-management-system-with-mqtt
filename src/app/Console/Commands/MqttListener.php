@@ -44,23 +44,13 @@ class MqttListener extends Command
                         try {
                             $property = Property::query()->where('name', $param)->firstOrFail();
 
-                            $values = Value::query()->where([
-                                'device_id' => $device->id,
-                                'property_id' => $property->id
-                            ])->first();
 
-                            if ($values == null) {
-                                $val = new Value();
-                                $val->device_id = $device->id;
-                                $val->property_id = $property->id;
-                                $val->value = $value;
-                                $val->save();
-                                echo sprintf('New value saved for property [%s]: %s', $param, $value);
-                            } else {
-                                $values->value = $value;
-                                $values->save();
-                                echo sprintf('Updated value saved for property [%s]: %s', $param, $value);
-                            }
+                            $val = new Value();
+                            $val->device_id = $device->id;
+                            $val->property_id = $property->id;
+                            $val->value = $value;
+                            $val->save();
+                            echo sprintf('New value saved for property [%s]: %s', $param, $value);
 
                         } catch (\Exception $e) {
                             echo sprintf('Data could not be saved [%s]: %s', $param, $e->getMessage());

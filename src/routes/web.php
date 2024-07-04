@@ -15,8 +15,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [\App\Http\Controllers\HomeController::class,'profile'])->name('profile');
-
     Route::get('/clear/notifications',[ \App\Http\Controllers\HomeController::class, 'clearNotifications'])->name('clear.notifies');
+    Route::post('/profile/update', [\App\Http\Controllers\UserController::class,'updateProfile'])->name('profile.update');
+    Route::get('/devices/chart/{id}', [\App\Http\Controllers\HomeController::class, 'chart'])->name('devices.chart');
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users');
     Route::get('users/items/{offset}/{limit}', [\App\Http\Controllers\UserController::class, 'items'])->name('users.items');

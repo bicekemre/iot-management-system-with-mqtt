@@ -33,10 +33,7 @@
                                                     data-bs-target="#edit-profile" type="button" role="tab"
                                                     aria-controls="home" aria-selected="true"
                                                     href="#edit-profile">Settings</a></li>
-                            <li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
-                                                    data-bs-target="#projects" type="button" role="tab"
-                                                    aria-controls="home" aria-selected="true"
-                                                    href="#projects">My Sensors</a></li>
+
                         </ul>
 
                         <div class="tab-content m-0 p-4">
@@ -69,35 +66,6 @@
                                 </div>
                             </div>
 
-                            <!-- profile -->
-                            <div id="projects" class="tab-pane">
-                                <div class="row m-t-10">
-                                    <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered mb-0">
-                                                <thead>
-                                                <tr>
-                                                    <th>Sensor Name</th>
-                                                    <th>Room Number</th>
-                                                    <th>Status</th>
-                                                    <th>Last Refill</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($sensors as $sensor)
-                                                <tr>
-                                                    <td>{{ $sensor->name }}</td>
-                                                    <td>{{ $sensor->room_number }}</td>
-                                                    <td>%{{ $sensor->status }}</td>
-                                                    <td>{{ $sensor->last_refill ? $sensor->last_refill->timezone('GMT+3')->format('d-m-Y, H:i') : '-'}}</td>
-                                                </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

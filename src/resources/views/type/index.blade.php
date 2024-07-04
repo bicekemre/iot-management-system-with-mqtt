@@ -177,6 +177,7 @@
             const newPropertyDiv = `
             <div class="mb-3">
                 <label for="property-name-${propertyCount}" class="form-label">Property Name ${propertyCount}</label>
+                <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
                 <input type="text" class="form-control" id="property-name-${propertyCount}" name="property-name-${propertyCount}">
             </div>
         `;
@@ -202,9 +203,10 @@
                         <div class="mb-3">
                             <input type="hidden" id="edit-property-id-${index}" value="${property.id}">
                             <label for="edit-property-name-${index}" class="form-label">Property Name ${index + 1}</label>
+                            <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
                             <input type="text" class="form-control" id="edit-property-name-${index}" name="property-name-${index}" value="${property.name}">
-                            <button type="button" class="btn btn-danger btn-sm" onclick="removeProperty(this)">Remove</button>
                         </div>
+
                     `;
                         $('#edit-property-fields').append(propertyField);
                     });
@@ -225,8 +227,9 @@
             <div class="mb-3">
                 <input type="hidden" id="edit-property-id-${index}" value="">
                 <label for="edit-property-name-${index}" class="form-label">Property Name ${index + 1}</label>
+                <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
+
                 <input type="text" class="form-control" id="edit-property-name-${index}" name="property-name-${index}">
-                <button type="button" class="btn btn-danger btn-sm" onclick="removeProperty(this)">Remove</button>
             </div>
         `;
             $('#edit-property-fields').append(propertyField);

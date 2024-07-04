@@ -38,10 +38,21 @@ class DeviceController extends Controller
 
     public function item($id)
     {
-        $device = Devices::query()->findOrFail($id)->load('values.property');
+        $device = Devices::findOrFail($id);
+
+        $latestValues = $device->values()
+            ->select('property_id', 'value', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->unique('property_id');
+
+        $latestValues->load('property');
+
+        $device->setRelation('values', $latestValues);
 
         return response()->json($device);
     }
+
 
     public function create(Request $request)
     {

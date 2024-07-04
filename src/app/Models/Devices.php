@@ -27,4 +27,9 @@ class Devices extends Model
     {
         return $this->hasMany(Value::class, 'device_id', 'id');
     }
+
+    public function value()
+    {
+        return $this->hasMany(Value::class, 'device_id', 'id');
+    }
 }

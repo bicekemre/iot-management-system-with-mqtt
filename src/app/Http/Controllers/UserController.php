@@ -106,6 +106,19 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    public function updateProfile(Request $request)
+    {
+        if ($request->password != $request->repassword){
+            return redirect()->route('profile')->withErrors('passwords are not matches');
+        }
+        $user = \auth()->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
+
+        return redirect()->route('profile');
+    }
 
     public function delete($id)
     {

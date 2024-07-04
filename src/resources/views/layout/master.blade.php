@@ -187,7 +187,7 @@
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="{{ route('roles') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ri-user-fill"></i>Roles
+                                    Roles
                                 </a>
                             </li>
 
