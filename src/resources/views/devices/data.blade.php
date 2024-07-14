@@ -56,56 +56,5 @@
     @endif
 </ul>
 
-<div class="modal fade" id="device-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="device-name"></h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table id="device-item" class="table">
-                    <thead>
-                        <tr>
-                            <th>Property Name</th>
-                            <th>Property Value</th>
-                        </tr>
-                    </thead>
-                    <tbody id="property-area">
 
-                    </tbody>
-                </table>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
-<script>
-    function getDevice(deviceId)
-    {
-        $('#property-area').empty();
-
-        $.ajax({
-
-            type: 'GET',
-            url: '/devices/item/' + deviceId,
-            success: function ( data ){
-                $('#device-name').text(data.name);
-                data.values.forEach(function ( value ){
-                    let propertyData = `
-                        <tr>
-                            <th>${value.property.name}</th>
-                            <th>${value.value}</th>
-                        </tr>
-
-                    `;
-                    $('#property-area').append(propertyData);
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-                $('#danger-alert-modal').modal('show');
-            }
-        });
-    }
-</script>

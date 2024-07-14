@@ -39,24 +39,6 @@ class HomeController extends Controller
     {
         $device = Devices::query()->findOrFail($id)->load('values.property');
 
-        $startOfDay = now()->subDay()->startOfDay();
-        $endOfDay = now()->subDay()->endOfDay();
-
-        $values = $device->values()
-            ->whereDate('created_at', '>=', $startOfDay)
-            ->whereDate('created_at', '<=', $endOfDay)
-            ->whereTime('created_at', '>=', '08:00:00')
-            ->whereTime('created_at', '<=', '20:00:00')
-            ->pluck('value')
-            ->toArray();
-
-        $time = $device->values()
-            ->whereDate('created_at', '>=', $startOfDay)
-            ->whereDate('created_at', '<=', $endOfDay)
-            ->whereTime('created_at', '>=', '08:00:00')
-            ->whereTime('created_at', '<=', '20:00:00')
-            ->pluck('created_at')
-            ->toArray();
 
         return response()->json($device);
     }
