@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Devices;
+use App\Models\Notifications;
 use App\Models\Property;
 use App\Models\Value;
 use Illuminate\Console\Command;
@@ -50,6 +51,18 @@ class MqttListener extends Command
                             $val->property_id = $property->id;
                             $val->value = $value;
                             $val->save();
+
+                            $min = $property->min;
+                            $max = $property->max;
+
+                            if ($val->value < $min || $val->value > $max) {
+                                $notification = new Notifications();
+                                $notification->type = 'device';
+                                $notification->notifable_type = Devices::class;
+                                $notification->notifable_id = $device->id;
+                                $notification->save();
+                            }
+
                             echo sprintf('New value saved for property [%s]: %s', $param, $value);
 
                         } catch (\Exception $e) {

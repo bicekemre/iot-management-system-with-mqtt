@@ -113,7 +113,7 @@
                         <button type="button" class="btn btn-secondary mt-2" onclick="addEditProperty()">Add Property</button>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary" onclick="update()">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -179,6 +179,9 @@
                 <label for="property-name-${propertyCount}" class="form-label">Property Name ${propertyCount}</label>
                 <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
                 <input type="text" class="form-control" id="property-name-${propertyCount}" name="property-name-${propertyCount}">
+               <label for=ideal-values" class="form-label">Ideal Values</label>
+                <input type="number" id="min-value-${propertyCount}" class="form-control mb-1" placeholder="min">
+                <input type="number" id="max-value-${propertyCount}" class="form-control mb-1" placeholder="max">
             </div>
         `;
             $('#property-fields').append(newPropertyDiv);
@@ -205,6 +208,9 @@
                             <label for="edit-property-name-${index}" class="form-label">Property Name ${index + 1}</label>
                             <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
                             <input type="text" class="form-control" id="edit-property-name-${index}" name="property-name-${index}" value="${property.name}">
+                            <label for=edit-min-value" class="form-label">Ideal Values</label>
+                            <input type="number" id="edit-min-value-${index}" class="form-control mb-1" placeholder="min" value="${property.min}">
+                            <input type="number" id="edit-max-value-${index}" class="form-control mb-1" placeholder="max" value="${property.max}">
                         </div>
 
                     `;
@@ -230,6 +236,10 @@
                 <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
 
                 <input type="text" class="form-control" id="edit-property-name-${index}" name="property-name-${index}">
+
+                <label for=edit-min-value" class="form-label">Ideal Values</label>
+                <input type="number" id="edit-min-value-${index}" class="form-control mb-1" placeholder="min">
+                <input type="number" id="edit-max-value-${index}" class="form-control mb-1" placeholder="max">
             </div>
         `;
             $('#edit-property-fields').append(propertyField);
@@ -241,6 +251,44 @@
 
 
 
+        function update() {
+            $('#edit-type-form').submit(function (e) {
+                e.preventDefault();
+                var typeId = $('#edit-type-id').val();
+                var type_name = $('#edit-name').val();
+                var properties = [];
+
+                $('#edit-property-fields .mb-3').each(function(index, element) {
+                    var propertyId = $(element).find('input[type="hidden"]').val();
+                    var propertyName = $(element).find('input[type="text"]').val();
+                    var min = $(`#edit-min-value-${index}`).val();
+                    var max = $(`#edit-max-value-${index}`).val();
+                    properties.push({
+                        id: propertyId,
+                        name: propertyName,
+                        min: min,
+                        max: max
+                    });
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/type/update/' + typeId,
+                    data: JSON.stringify({ type_name: type_name, properties: properties }),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        // Handle success response
+                        $('#edit-type-modal').modal('hide');
+                        $('#success-alert-modal').modal('show');
+                        getData(); // Refresh the page or update the table accordingly
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        $('#danger-alert-modal').modal('show');
+                    }
+                });
+            });
+        }
         $(document).ready(function() {
 
             $.ajaxSetup({
@@ -254,8 +302,14 @@
                 const properties = [];
                 for (let i = 1; i <= propertyCount; i++) {
                     const propertyName = $(`#property-name-${i}`).val();
+                    let min = $(`#min-value-${i}`).val();
+                    let max = $(`#max-value-${i}`).val();
                     if (propertyName) {
-                        properties.push(propertyName);
+                        properties.push({
+                            name: propertyName,
+                            min: min,
+                            max: max
+                        });
                     }
                 }
 
@@ -277,37 +331,6 @@
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
-                        $('#danger-alert-modal').modal('show');
-                    }
-                });
-            });
-
-
-            $('#edit-type-form').submit(function (e) {
-                e.preventDefault();
-                var typeId = $('#edit-type-id').val();
-                var type_name = $('#edit-name').val();
-                var properties = [];
-
-                $('#edit-property-fields .mb-3').each(function(index, element) {
-                    var propertyId = $(element).find('input[type="hidden"]').val();
-                    var propertyName = $(element).find('input[type="text"]').val();
-                    properties.push({ id: propertyId, name: propertyName });
-                });
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/type/update/' + typeId,
-                    data: JSON.stringify({ type_name: type_name, properties: properties }),
-                    contentType: 'application/json',
-                    success: function(response) {
-                        // Handle success response
-                        $('#edit-type-modal').modal('hide');
-                        $('#success-alert-modal').modal('show');
-                        getData(); // Refresh the page or update the table accordingly
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle error response
                         $('#danger-alert-modal').modal('show');
                     }
                 });

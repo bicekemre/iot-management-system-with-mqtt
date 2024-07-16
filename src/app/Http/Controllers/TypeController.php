@@ -19,15 +19,35 @@ class TypeController extends Controller
         return view('type.index', compact('type'));
     }
 
+    public function items($offset, $limit)
+    {
+        $type = Type::query()->orderBy('id', 'desc');
+
+        if (\request()->has('search')) {
+            $search = \request()->get('search');
+            $type->where('name', 'like', '%' . $search . '%');
+        }
+
+        $types = $type->paginate(
+            perPage: $limit,
+            page: $offset
+        );
+        return view('type.data', compact('types'));
+
+    }
+
     public function create(Request $request)
     {
         $type = new Type();
         $type->name = $request->name;
         $type->save();
+
         foreach ($request->properties as $property) {
             Property::query()->create([
-               'name' => $property,
+               'name' => $property['name'],
                 'type_id' => $type->id,
+                'min' => $property['min'],
+                'max' => $property['max'],
             ]);
         }
 
@@ -52,8 +72,12 @@ class TypeController extends Controller
         $newProperties = $request->properties;
         foreach ($newProperties as $property) {
             $updatedProperty = Property::query()->updateOrCreate(
-                ['name' => $property['name']],
-                ['type_id' => $type->id]
+                [
+                    'name' => $property['name'],
+                    'min' => $property['min'],
+                    'max' => $property['max'],
+                ],
+                ['type_id' => $type->id],
             );
 
             if (($key = array_search($updatedProperty->id, $currentProperties)) !== false) {

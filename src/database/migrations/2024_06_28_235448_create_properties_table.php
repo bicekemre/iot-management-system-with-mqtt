@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('type_id');
             $table->string('name');
+            $table->float('min');
+            $table->float('max');
             $table->timestamps();
         });
     }

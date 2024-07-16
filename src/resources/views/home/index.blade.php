@@ -405,8 +405,8 @@
                                 <div class="col-lg-3">
                                     <div class="card card-body border-primary border align-items-center">
                                         <h4 class="card-title ">${value.property.name}:</h4>
-                                        <p class="card-text">${value.value}
-                                            </p>
+                                        <p class="card-text">${value.value}</p>
+                                        <h4 class="card-title">Ideal: ${value.property.min} - ${value.property.max}</h4>
                                     </div>
                                 </div>
 
