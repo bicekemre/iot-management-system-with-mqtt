@@ -1,13 +1,13 @@
 <table id="table" class="table table-striped">
     <thead>
     <tr>
-        <th>User Name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Organization</th>
-        <th>Updated At</th>
-        <th>Created At</th>
-        <th>Action</th>
+        <th>{{ __('users.User Name') }}</th>
+        <th>{{ __('users.Email') }}</th>
+        <th>{{ __('users.Role') }}</th>
+        <th>{{ __('users.Organization') }}</th>
+        <th>{{ __('users.Updated At') }}</th>
+        <th>{{ __('users.Created At') }}</th>
+        <th>{{ __('users.Actions') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -37,7 +37,7 @@
 <ul class="pagination pagination-rounded mb-0">
     @if ($users->currentPage() > 1)
         <li class="page-item">
-            <button class="page-link" onclick="getData({{ $users->currentPage() - 1  }})" >Previous</button>
+            <button class="page-link" onclick="getData({{ $users->currentPage() - 1  }})" >{{ __('pagination.Previous') }}</button>
         </li>
     @endif
     @for ($i = 1; $i <= $users->lastPage(); $i++)
@@ -47,7 +47,7 @@
     @endfor
     @if ($users->currentPage() < $users->lastPage())
         <li class="page-item">
-            <button class="page-link" onclick="getData({{  $users->currentPage() + 1 }})">Next</button>
+            <button class="page-link" onclick="getData({{  $users->currentPage() + 1 }})">{{ __('pagination.Next') }}</button>
         </li>
     @endif
 </ul>

@@ -1,8 +1,8 @@
 @extends('layout.master')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('users') }}">Users</a></li>
-    <li class="breadcrumb-item active">Roles</li>
+    <li class="breadcrumb-item"><a href="{{ route('home', ['locale' => app()->getLocale()]) }}">{{ __('home.Home') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('users',  ['locale' => app()->getLocale()]) }}">{{ __('role.Users') }}</a></li>
+    <li class="breadcrumb-item active">{{ __('role.Roles') }}</li>
 @endsection
 @section('title', 'Users')
 @section('head')
@@ -22,11 +22,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="header-title">Roles</h4>
+                    <h4 class="header-title">{{ __('role.Roles') }}</h4>
 
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#standard-modal">Add Role
+                            data-bs-target="#standard-modal">{{ __('role.Add Role') }}
                     </button>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="table-responsive-sm">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div style="margin-right: 10px;">
-                            <label for="limit" class="form-label">Per Page</label>
+                            <label for="limit" class="form-label">{{ __('pagination.Per Page') }}</label>
                             <select id="limit" name="limit" onchange="getData()" class="form-control">
                                 <option value="10" selected>10</option>
                                 <option value="20">20</option>
@@ -61,25 +61,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="standard-modalLabel">Roles and Permissions</h4>
+                    <h4 class="modal-title" id="standard-modalLabel">{{ __('role.Roles and Permissions') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="add-role" action="{{ route('roles.create') }}" method="POST">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">{{ __('role.Name') }}</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
+                            <label for="description" class="form-label">{{ __('role.Role Description') }}</label>
                             <textarea type="text" class="form-control" id="description" name="name"></textarea>
                         </div>
-                        <label for="permissions" class="form-label">Permissions</label>
+                        <label for="permissions" class="form-label">{{ __('role.Permissions') }}</label>
 
                         <div class="mb-3">
                             <!-- Users Permissions -->
                             <input type="checkbox" class="form-check-input" id="user-permissions-checkbox" onclick="toggleAllPermissions('user-permission-options', 'user-permissions-checkbox')">
-                            <a href="#" id="user-permissions" onclick="permission('user-permission-options')">Users --></a>
+                            <a href="#" id="user-permissions" onclick="permission('user-permission-options')">{{ __('role.Users') }} --></a>
                             <div id="user-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="create-user-permission" onclick="toggleParentCheckbox('user-permission-options', 'user-permissions-checkbox')">
                                 <label class="form-check-label" for="create-user-permission">Create</label>
@@ -97,7 +97,7 @@
                         <div class="mb-3">
                             <!-- Organizations Permissions -->
                             <input type="checkbox" class="form-check-input" id="organization-permissions-checkbox" onclick="toggleAllPermissions('organization-permission-options', 'organization-permissions-checkbox')">
-                            <a href="#" id="organization-permissions" onclick="permission('organization-permission-options')">Organizations --></a>
+                            <a href="#" id="organization-permissions" onclick="permission('organization-permission-options')">{{ __('role.Organizations') }} --></a>
                             <div id="organization-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="create-organization-permission" onclick="toggleParentCheckbox('organization-permission-options', 'organization-permissions-checkbox')">
                                 <label class="form-check-label" for="create-organization-permission">Create</label>
@@ -116,7 +116,7 @@
 
                             <!-- Devices Permissions -->
                             <input type="checkbox" class="form-check-input" id="device-permissions-checkbox" onclick="toggleAllPermissions('device-permission-options', 'device-permissions-checkbox')">
-                            <a href="#" id="device-permissions" onclick="permission('device-permission-options')">Devices --></a>
+                            <a href="#" id="device-permissions" onclick="permission('device-permission-options')">{{ __('role.Devices') }} --></a>
                             <div id="device-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="create-device-permission" onclick="toggleParentCheckbox('device-permission-options', 'device-permissions-checkbox')">
                                 <label class="form-check-label" for="create-device-permission">Create</label>
@@ -134,7 +134,7 @@
                         <div class="mb-3">
                             <!-- Roles Permissions -->
                             <input type="checkbox" class="form-check-input" id="role-permissions-checkbox" onclick="toggleAllPermissions('role-permission-options', 'role-permissions-checkbox')">
-                            <a href="#" id="role-permissions" onclick="permission('role-permission-options')">Roles --></a>
+                            <a href="#" id="role-permissions" onclick="permission('role-permission-options')">{{ __('role.Roles') }} --></a>
                             <div id="role-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="create-role-permission" onclick="toggleParentCheckbox('role-permission-options', 'role-permissions-checkbox')">
                                 <label class="form-check-label" for="create-role-permission">Create</label>
@@ -152,8 +152,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="create()">Save changes</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                        <button type="button" class="btn btn-primary" onclick="create()">{{ __('modals.Save changes') }}</button>
                     </div>
                 </form>
             </div><!-- /.modal-content -->
@@ -165,26 +165,26 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="edit-role-modalLabel">Edit Role</h4>
+                    <h4 class="modal-title" id="edit-role-modalLabel">{{ __('role.Edit Role') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-role-form" method="POST">
                         <input type="hidden" id="edit-role-id">
                         <div class="mb-3">
-                            <label for="edit-name" class="form-label">Name</label>
+                            <label for="edit-name" class="form-label">{{ __('role.Name') }}</label>
                             <input type="text" class="form-control" id="edit-name" name="name">
                         </div>
                         <div class="mb-3">
-                            <label for="edit-description" class="form-label">Description</label>
+                            <label for="edit-description" class="form-label">{{ __('role.Role Description') }}</label>
                             <textarea type="text" class="form-control" id="edit-description" name="description"></textarea>
                         </div>
-                        <label for="edit-permissions" class="form-label">Permissions</label>
+                        <label for="edit-permissions" class="form-label">{{ __('role.Permissions') }}</label>
 
                         <div class="mb-3">
                             <!-- Users Permissions -->
                             <input type="checkbox" class="form-check-input" id="edit-user-permissions-checkbox" onclick="toggleAllPermissions('edit-user-permission-options', 'edit-user-permissions-checkbox')">
-                            <a href="#" id="edit-user-permissions" onclick="permission('edit-user-permission-options')">Users --></a>
+                            <a href="#" id="edit-user-permissions" onclick="permission('edit-user-permission-options')">{{ __('role.Users') }} --></a>
                             <div id="edit-user-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="edit-create-user-permission" onclick="toggleParentCheckbox('edit-user-permission-options', 'edit-user-permissions-checkbox')">
                                 <label class="form-check-label" for="edit-create-user-permission">Create</label>
@@ -202,7 +202,7 @@
                         <div class="mb-3">
                             <!-- Organizations Permissions -->
                             <input type="checkbox" class="form-check-input" id="edit-organization-permissions-checkbox" onclick="toggleAllPermissions('edit-organization-permission-options', 'edit-organization-permissions-checkbox')">
-                            <a href="#" id="edit-organization-permissions" onclick="permission('edit-organization-permission-options')">Organizations --></a>
+                            <a href="#" id="edit-organization-permissions" onclick="permission('edit-organization-permission-options')">{{ __('role.Organizations') }} --></a>
                             <div id="edit-organization-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="edit-create-organization-permission" onclick="toggleParentCheckbox('edit-organization-permission-options', 'edit-organization-permissions-checkbox')">
                                 <label class="form-check-label" for="edit-create-organization-permission">Create</label>
@@ -220,7 +220,7 @@
                         <div class="mb-3">
                             <!-- Devices Permissions -->
                             <input type="checkbox" class="form-check-input" id="edit-device-permissions-checkbox" onclick="toggleAllPermissions('edit-device-permission-options', 'edit-device-permissions-checkbox')">
-                            <a href="#" id="edit-device-permissions" onclick="permission('edit-device-permission-options')">Devices --></a>
+                            <a href="#" id="edit-device-permissions" onclick="permission('edit-device-permission-options')">{{ __('role.Devices') }} --></a>
                             <div id="edit-device-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="edit-create-device-permission" onclick="toggleParentCheckbox('edit-device-permission-options', 'edit-device-permissions-checkbox')">
                                 <label class="form-check-label" for="edit-create-device-permission">Create</label>
@@ -238,7 +238,7 @@
                         <div class="mb-3">
                             <!-- Roles Permissions -->
                             <input type="checkbox" class="form-check-input" id="edit-role-permissions-checkbox" onclick="toggleAllPermissions('edit-role-permission-options', 'edit-role-permissions-checkbox')">
-                            <a href="#" id="edit-role-permissions" onclick="permission('edit-role-permission-options')">Roles --></a>
+                            <a href="#" id="edit-role-permissions" onclick="permission('edit-role-permission-options')">{{ __('role.Roles') }} --></a>
                             <div id="edit-role-permission-options" class="align-top" style="display: none;">
                                 <input type="checkbox" class="form-check-input" id="edit-create-role-permission" onclick="toggleParentCheckbox('edit-role-permission-options', 'edit-role-permissions-checkbox')">
                                 <label class="form-check-label" for="edit-create-role-permission">Create</label>
@@ -256,43 +256,17 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="update()">Save changes</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="update()">{{ __('modals.Save changes') }}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
 
-    <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-success">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-check-line h1"></i>
-                        <h4 class="mt-2">Well Done!</h4>
-                        <p class="mt-3">Your process done with successfully</p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.success')
 
-    <div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-danger">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-close-circle-line h1"></i>
-                        <h4 class="mt-2">Error!</h4>
-                        <p class="mt-3"></p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.error')
 
 @endsection
 

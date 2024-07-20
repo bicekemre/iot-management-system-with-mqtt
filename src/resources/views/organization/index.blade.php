@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">organizations</li>
+    <li class="breadcrumb-item"><a href="{{ route('home', ['locale' => app()->getLocale()]) }}">{{ __('home.Home') }}</a></li>
+    <li class="breadcrumb-item active">{{ __('organization.Organizations') }}</li>
 @endsection
 @section('title', 'organizations')
 @section('head')
@@ -23,11 +23,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="header-title">organizations</h4>
+                    <h4 class="header-title">{{ __('organization.Organizations') }}</h4>
 
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#standard-modal">Add organizations
+                            data-bs-target="#standard-modal">{{ __('organization.Add Organization') }}
                     </button>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="table-responsive-sm">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div style="margin-right: 10px;">
-                            <label for="limit" class="form-label">Per Page</label>
+                            <label for="limit" class="form-label">{{ __('pagination.Per Page') }}</label>
                             <select id="limit" name="limit" onchange="getData()" class="form-control">
                                 <option value="10" selected>10</option>
                                 <option value="20">20</option>
@@ -64,33 +64,33 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="standard-modalLabel">Add organization</h4>
+                    <h4 class="modal-title" id="standard-modalLabel">{{ __('organization.Add Organization') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addBusinessForm">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">{{ __('organization.Name') }}</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">{{ __('organization.Email') }}</label>
                             <input type=email class="form-control " id="email"
                                    name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
+                            <label for="phone" class="form-label">{{ __('organization.Phone') }}</label>
                             <input type="number" class="form-control" id="phone" name="phone">
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="address" class="form-label">{{ __('organization.Address') }}</label>
                             <textarea class="form-control " id="address"
                                       name="address" required></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('modals.Save changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -103,33 +103,33 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="edit-organization-modalLabel">Edit organization</h4>
+                    <h4 class="modal-title" id="edit-organization-modalLabel">{{ __('organization.Edit Organization') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-organization-form" method="POST">
                         <input type="hidden" id="edit-organization-id">
                         <div class="mb-3">
-                            <label for="edit-name" class="form-label">Name</label>
+                            <label for="edit-name" class="form-label">{{ __('organization.Name') }}</label>
                             <input type="text" class="form-control" id="edit-name" name="edit-name">
                         </div>
                         <div class="mb-3">
-                            <label for="edit-email" class="form-label">Email</label>
+                            <label for="edit-email" class="form-label">{{ __('organization.Email') }}</label>
                             <input type=email class="form-control " id="edit-email"
                                    name="edit-email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-phone" class="form-label">Phone</label>
+                            <label for="edit-phone" class="form-label">{{ __('organization.Phone') }}</label>
                             <input type="number" class="form-control" id="edit-phone" name="edit-phone">
                         </div>
                         <div class="mb-3">
-                            <label for="edit-address" class="form-label">Address</label>
+                            <label for="edit-address" class="form-label">{{ __('organization.Address') }}</label>
                             <textarea class="form-control " id="edit-address"
                                       name="edit-address" required></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('modals.Save changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -138,35 +138,9 @@
     </div><!-- /.modal -->
 
 
-    <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-success">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-check-line h1"></i>
-                        <h4 class="mt-2">Well Done!</h4>
-                        <p class="mt-3">Your process done with successfully</p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.success')
 
-    <div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-danger">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-close-circle-line h1"></i>
-                        <h4 class="mt-2">Error!</h4>
-                        <p class="mt-3"></p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.error')
 
 
 @endsection
@@ -312,7 +286,7 @@
     </script>
 
     <!--  Select2 Plugin Js -->
-    <script src="assets/vendor/select2/js/select2.min.js"></script>
+    <script src="{{ assert('assets/vendor/select2/js/select2.min.js') }}"></script>
 
     <!-- Datatable Demo Aapp js -->
     <script src="{{ asset('assets/js/pages/datatable.init.js') }}"></script>

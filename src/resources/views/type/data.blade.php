@@ -1,10 +1,10 @@
 <table id="table" class="table table-striped">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Updated At</th>
-        <th>Created At</th>
-        <th>Action</th>
+        <th>{{ __('type.Name') }}</th>
+        <th>{{ __('type.Updated At') }}</th>
+        <th>{{ __('type.Created At') }}</th>
+        <th>{{ __('type.Actions') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
 <ul class="pagination pagination-rounded mb-0">
     @if ($types->currentPage() > 1)
         <li class="page-item">
-            <button class="page-link" onclick="getData({{ $types->currentPage() - 1  }})" >Previous</button>
+            <button class="page-link" onclick="getData({{ $types->currentPage() - 1  }})" >{{ __('pagination.Previous') }}</button>
         </li>
     @endif
     @for ($i = 1; $i <= $types->lastPage(); $i++)
@@ -41,7 +41,7 @@
     @endfor
     @if ($types->currentPage() < $types->lastPage())
         <li class="page-item">
-            <button class="page-link" onclick="getData({{  $types->currentPage() + 1 }})">Next</button>
+            <button class="page-link" onclick="getData({{  $types->currentPage() + 1 }})">{{ __('pagination.Next') }}</button>
         </li>
     @endif
 </ul>

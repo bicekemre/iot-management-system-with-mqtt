@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">devices</li>
+    <li class="breadcrumb-item"><a href="{{ route('home', ['locale' => app()->getLocale()]) }}">{{ __('home.Home') }}</a></li>
+    <li class="breadcrumb-item active">{{ __('devices.Devices') }}</li>
 @endsection
 @section('title', 'devices')
 @section('head')
@@ -39,11 +39,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="header-title">devices</h4>
+                    <h4 class="header-title">{{ __('devices.Devices') }}</h4>
 
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#standard-modal">Add device
+                            data-bs-target="#standard-modal">{{ __('devices.Add Device') }}
                     </button>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="table-responsive-sm">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div style="margin-right: 10px;">
-                            <label for="limit" class="form-label">Per Page</label>
+                            <label for="limit" class="form-label">{{ __('pagination.Per Page') }}</label>
                             <select id="limit" name="limit" onchange="getData()" class="form-control">
                                 <option value="10" selected>10</option>
                                 <option value="20">20</option>
@@ -79,14 +79,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="standard-modalLabel">Add device</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title" id="standard-modalLabel">{{ __('devices.Add Device') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('modals.Close') }}"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addDeviceForm">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">{{ __('devices.Name') }}</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="mb-3">
@@ -95,26 +95,26 @@
                                    name="uuid" required>
                         </div>
                         <div class="mb-3">
-                            <label for="type" class="form-label">Select Type</label>
+                            <label for="type" class="form-label">{{ __('devices.Select Type') }}</label>
                             <select id="type" name="type" class="form-control">
-                                <option value="">Select Type</option>
+                                <option value="">{{ __('devices.Select Type') }}</option>
                                 @foreach($types as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="organization" class="form-label">Organization</label>
+                            <label for="organization" class="form-label">{{ __('devices.Organization') }}</label>
                             <select id="organization" name="organization" class="form-control">
-                                <option value="NULL">Select Organization</option>
+                                <option value="NULL">{{ __('devices.Select Organization') }}</option>
                                 @foreach($organizations as $organization)
                                     <option value="{{ $organization->id }}">{{ $organization->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('modals.Save changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -127,14 +127,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="edit-device-modalLabel">Edit device</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h4 class="modal-title" id="edit-device-modalLabel">{{ __('devices.Edit device') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('modals.Close') }}"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-device-form" method="POST">
                         <input type="hidden" id="edit-device-id">
                         <div class="mb-3">
-                            <label for="edit-name" class="form-label">Name</label>
+                            <label for="edit-name" class="form-label">{{ __('devices.Name') }}</label>
                             <input type="text" class="form-control" id="edit-name" name="name">
                         </div>
                         <div class="mb-3">
@@ -143,7 +143,7 @@
                                    name="edit-uuid" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-type" class="form-label">Type</label>
+                            <label for="edit-type" class="form-label">{{ __('devices.Select Type') }}</label>
                             <select id="edit-type" name="type" class="form-control">
                                 @foreach($types as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -151,9 +151,9 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-organization" class="form-label">Business</label>
+                            <label for="edit-organization" class="form-label">{{ __('devices.Organization') }}</label>
                             <select id="edit-organization" name="edit-organization" class="form-control">
-                                <option value="NULL">Select Organization</option>
+                                <option value="NULL">{{ __('devices.Select Organization') }}</option>
                                 @foreach($organizations as $organization)
                                     <option value="{{ $organization->id }}">{{ $organization->name }}</option>
                                 @endforeach
@@ -162,8 +162,8 @@
                         <div class="invalid-feedback" id="organization"></div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('modals.Save changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -171,36 +171,9 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+   @include('modals.success')
 
-    <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-success">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-check-line h1"></i>
-                        <h4 class="mt-2">Well Done!</h4>
-                        <p class="mt-3">Your process done with successfully</p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-danger">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-close-circle-line h1"></i>
-                        <h4 class="mt-2">Error!</h4>
-                        <p class="mt-3"></p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.error')
 
     <div class="modal fade" id="device-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-full-width modal-dialog-scrollable">
@@ -214,20 +187,20 @@
                     <ul class="nav nav-underline nav-justified gap-0">
                         <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab"
                                                 data-bs-target="#live-data" type="button" role="tab"
-                                                aria-controls="home" aria-selected="true" href="#live-data">Live Data</a>
+                                                aria-controls="home" aria-selected="true" href="#live-data">{{ __('devices.Live Data') }}</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
                                                 data-bs-target="#history" type="button" role="tab"
                                                 aria-controls="home" aria-selected="true"
-                                                href="#history">History</a></li>
+                                                href="#history">{{ __('devices.History') }}</a></li>
                         <li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
                                                 data-bs-target="#weather" type="button" role="tab"
                                                 aria-controls="home" aria-selected="true"
-                                                href="#weather">Weather</a></li>
+                                                href="#weather">{{ __('devices.Weather') }}</a></li>
                         <li class="nav-item"><a class="nav-link" onclick="initMap()" data-bs-toggle="tab"
                                                 data-bs-target="#map" type="button" role="tab"
                                                 aria-controls="home" aria-selected="true"
-                                                href="#map">Map</a></li>
+                                                href="#map">{{ __('devices.Map') }}</a></li>
                     </ul>
 
                     <div class="tab-content m-0 p-4">
@@ -238,16 +211,16 @@
 
                         <!-- History -->
                         <div id="history" class="tab-pane">
-                            <h5 class="header-title mb-0">Device Graphic</h5>
+                            <h5 class="header-title mb-0">{{ __('devices.Device Graphic') }}</h5>
 
                             <div id="weeklysales-collapse" class="collapse pt-3 show">
                                 <div dir="ltr">
                                     <div id="device-line-chart"  class="apex-charts h-auto"></div>
                                     <div class="row text-center">
                                         <div class="col">
-                                            <p class="text-muted mt-3">Device Name</p>
+                                            <p class="text-muted mt-3"></p>
                                             <h3 class=" mb-0">
-                                                <span id="device-name">Name</span>
+                                                <span id="device-name">{{ __('devices.Name') }}</span>
                                             </h3>
                                         </div>
                                     </div>
@@ -262,51 +235,51 @@
                             <div class="card">
                                 <div class="card-body weather-card">
                                     <div class="weather-item">
-                                        <span>Time Stamp:</span>
+                                        <span>{{ __('devices.Time Stamp') }}:</span>
                                         <span id="timestamp">July 14th 2024, 3 AM</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Air Temperature:</span>
+                                        <span>{{ __('devices.Air Temperature') }}:</span>
                                         <span id="temp">22.40 Degree Celsius</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Air Humidity:</span>
+                                        <span>{{ __('devices.Air Humidity') }}:</span>
                                         <span id="humidity">83.70 %</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Air Pressure:</span>
+                                        <span>{{ __('devices.Air Pressure') }}:</span>
                                         <span id="pressure">911.82 hPa</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Baro Pressure:</span>
+                                        <span>{{ __('devices.Baro Pressure') }}:</span>
                                         <span id="baro-pressure">1006.20 hPa</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Wind Speed:</span>
+                                        <span>{{ __('devices.Wind Speed') }}:</span>
                                         <span id="wind-speed">23.15 km/hr</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Wind Direction:</span>
+                                        <span>{{ __('devices.Wind Direction') }}:</span>
                                         <span id="wind-dir">W</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Rain Fall:</span>
+                                        <span>{{ __('devices.Rain Fall') }}:</span>
                                         <span id="rain-fall">6.36 mm</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Day Length:</span>
+                                        <span>{{ __('devices.Day Length') }}:</span>
                                         <span id="day-length">46140.00 seconds</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Sunshine Hours:</span>
+                                        <span>{{ __('devices.Sunshine Hours') }}:</span>
                                         <span id="sunshine-hours">0.80</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Rain Probability:</span>
+                                        <span>{{ __('devices.Rain Probability') }}:</span>
                                         <span id="rain-prob">70.00 %</span>
                                     </div>
                                     <div class="weather-item">
-                                        <span>Cloud Cover:</span>
+                                        <span>{{ __('devices.Cloud Cover') }}:</span>
                                         <span id="cloud-cover">100.00 %</span>
                                     </div>
                                 </div>
@@ -512,8 +485,8 @@
                                 <div class="col-lg-3">
                                     <div class="card card-body border-primary border align-items-center">
                                         <h4 class="card-title ">${value.property.name}:</h4>
-                                        <p class="card-text">${value.value}
-                                            </p>
+                                        <p class="card-text">${value.value}</p>
+                                        <h4 class="card-title">Ideal: ${value.property.min} - ${value.property.max}</h4>
                                     </div>
                                 </div>
 

@@ -1,10 +1,10 @@
 <table id="table" class="table table-striped">
     <thead>
     <tr>
-        <th>Role Name</th>
-        <th>Description</th>
-        <th>Created At</th>
-        <th>Action</th>
+        <th>{{ __('role.Role Name') }}</th>
+        <th>{{ __('role.Role Description') }}</th>
+        <th>{{ __('role.Created At') }}</th>
+        <th>{{ __('role.Actions') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
 <ul class="pagination pagination-rounded mb-0">
     @if ($roles->currentPage() > 1)
         <li class="page-item">
-            <button class="page-link" onclick="getData({{ $roles->currentPage() - 1  }})" >Previous</button>
+            <button class="page-link" onclick="getData({{ $roles->currentPage() - 1  }})" >{{ __('pagination.Previous') }}</button>
         </li>
     @endif
     @for ($i = 1; $i <= $roles->lastPage(); $i++)
@@ -41,7 +41,7 @@
     @endfor
     @if ($roles->currentPage() < $roles->lastPage())
         <li class="page-item">
-            <button class="page-link" onclick="getData({{  $roles->currentPage() + 1 }})">Next</button>
+            <button class="page-link" onclick="getData({{  $roles->currentPage() + 1 }})">{{ __('pagination.Next') }}</button>
         </li>
     @endif
 </ul>

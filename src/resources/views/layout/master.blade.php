@@ -83,6 +83,26 @@
             </div>
 
             <ul class="topbar-menu d-flex align-items-center gap-3">
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <span class="align-middle d-none d-lg-inline-block">{{ strtoupper(app()->getLocale())   }}</span>
+                        <i class="ri-arrow-down-s-line d-none d-sm-inline-block align-middle"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
+
+                        <a href="{{ route(request()->route()->getName(), ['locale' => 'en',]) }}" class="dropdown-item">
+                            <span class="align-middle">{{ __('EN') }}</span>
+                        </a>
+
+                        <a href="{{ route(request()->route()->getName(), ['locale' => 'tr',]) }}" class="dropdown-item">
+                            <span class="align-middle">{{ __('TR') }}</span>
+                        </a>
+
+                    </div>
+                </li>
+
+
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                        aria-haspopup="false" aria-expanded="false">
@@ -93,25 +113,25 @@
                         <div class="p-2 border-top-0 border-start-0 border-end-0 border-dashed border">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h6 class="m-0 fs-16 fw-semibold"> Notification</h6>
+                                    <h6 class="m-0 fs-16 fw-semibold"> {{ __('layout.Notification') }}</h6>
                                 </div>
                                 <div class="col-auto">
                                     <a href="{{ route('clear.notifies') }}" class="text-dark text-decoration-underline">
-                                        <small>Clear All</small>
+                                        <small>{{ __('layout.Clear All') }}</small>
                                     </a>
                                 </div>
                             </div>
                         </div>
 
                         <div style="max-height: 300px;" data-simplebar>
-                            @foreach($notifications->take(5) as $notifications)
+                            @foreach($notifications->take(5) as $notification)
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-primary-subtle">
                                     <i class="mdi mdi-comment-account-outline text-primary"></i>
                                 </div>
-                                <p class="notify-details">Caleb Flakelar commented on Admin
-                                    <small class="noti-time">1 min ago</small>
+                                <p class="notify-details">{{ $notification->data }}
+                                    <small class="noti-time">{{ $notification->created_at }}</small>
                                 </p>
                             </a>
                             @endforeach
@@ -130,7 +150,7 @@
                     <a class="nav-link dropdown-toggle arrow-none nav-user" data-bs-toggle="dropdown" href="#" role="button"
                        aria-haspopup="false" aria-expanded="false">
                             <span class="account-user-avatar">
-                                <img src="assets/images/users/avatar-1.jpg" alt="user-image" width="32" class="rounded-circle">
+                                <img src="{{ asset('assets/images/users/avatar-2.jpg') }}" alt="user-image" width="32" class="rounded-circle">
                             </span>
                         <span class="d-lg-block d-none">
                                 <h5 class="my-0 fw-normal">{{ auth()->user()->name ?? '' }} <i
@@ -140,13 +160,13 @@
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
                         <!-- item-->
                         <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome !</h6>
+                            <h6 class="text-overflow m-0">{{ __('layout.Welcome') }} !</h6>
                         </div>
 
                         <!-- item-->
-                        <a href="{{ route('profile') }}" class="dropdown-item">
+                        <a href="{{ route('profile', ['locale' => app()->getLocale()]) }}" class="dropdown-item">
                             <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
-                            <span>My Account</span>
+                            <span>{{ __('layout.My Account') }}</span>
                         </a>
 
 {{--                        <!-- item-->--}}
@@ -158,7 +178,7 @@
                         <!-- item-->
                         <a href="{{ route('logout') }}" class="dropdown-item">
                             <i class="ri-logout-box-line fs-18 align-middle me-1"></i>
-                            <span>Logout</span>
+                            <span>{{ __('layout.Logout') }}</span>
                         </a>
                     </div>
                 </li>
@@ -174,38 +194,38 @@
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="/" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="ri-dashboard-3-line"></i>Dashboards
+                            <a class="nav-link dropdown-toggle arrow-none" href="/{{  app()->getLocale() }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="ri-dashboard-3-line"></i>{{ __('layout.Dashboard') }}
                             </a>
                         </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('users') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ri-user-fill"></i>Users
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('users', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ri-user-fill">{{ __('layout.Users') }}</i>
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('roles') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Roles
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('roles', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('layout.Roles') }}
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('organizations') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Organizations
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('organizations', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('layout.Organizations') }}
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('devices') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Devices
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('devices', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('layout.Devices') }}
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('types') }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Device Type
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('types', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('layout.Device Type') }}
                                 </a>
                             </li>
 

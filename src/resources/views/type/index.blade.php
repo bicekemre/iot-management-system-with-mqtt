@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">type</li>
+    <li class="breadcrumb-item"><a href="{{ route('home', ['locale' => app()->getLocale()]) }}">{{ __('home.Home') }}</a></li>
+    <li class="breadcrumb-item active">{{ __('type.Type') }}</li>
 @endsection
 @section('title', 'type')
 @section('head')
@@ -19,11 +19,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="header-title">type</h4>
+                    <h4 class="header-title">{{ __('type.Type') }}</h4>
 
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#standard-modal">Add type
+                            data-bs-target="#standard-modal">{{ __('type.Add Type') }}
                     </button>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="table-responsive-sm">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div style="margin-right: 10px;">
-                            <label for="limit" class="form-label">Per Page</label>
+                            <label for="limit" class="form-label">{{ __('pagination.Per Page') }}</label>
                             <select id="limit" name="limit" onchange="getData()" class="form-control">
                                 <option value="10" selected>10</option>
                                 <option value="20">20</option>
@@ -66,11 +66,11 @@
                     <form id="add-type-form">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">{{ __('type.Name') }}</label>
                             <input type="text" class="form-control" id="name" name="name">
                         </div>
                             <div class="mb-3">
-                               <a class="btn btn-primary" onclick="addProperty()">Add Property</a>
+                               <a class="btn btn-primary" onclick="addProperty()">{{ __('type.Add Property') }}</a>
                             </div>
                         <div id="property-fields">
                             <div class="mb-3">
@@ -78,8 +78,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('modals.Save changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -92,28 +92,28 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="edit-type-modalLabel">Edit type</h4>
+                    <h4 class="modal-title" id="edit-type-modalLabel">{{ __('type.Edit Type') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="edit-type-form" method="POST">
                         <input type="hidden" id="edit-type-id">
                         <div class="mb-3">
-                            <label for="edit-name" class="form-label">Name</label>
+                            <label for="edit-name" class="form-label">{{ __('type.Name') }}</label>
                             <input type="text" class="form-control" id="edit-name" name="edit-name">
                         </div>
                         <div id="edit-property-fields">
                             <div class="mb-3">
                                 <input type="hidden" id="property-id-">
-                                <label for="property-name-1" class="form-label">Property Name</label>
+                                <label for="property-name-1" class="form-label">{{ __('type.Property Name') }}</label>
                                 <input type="text" class="form-control" id="property-name-1" name="property-name-1">
-                                <button type="button" class="btn btn-danger btn-sm" onclick="removeProperty(this)">Remove</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeProperty(this)">{{ __('type.Remove') }}</button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-secondary mt-2" onclick="addEditProperty()">Add Property</button>
+                        <button type="button" class="btn btn-secondary mt-2" onclick="addEditProperty()">{{ __('type.Add Property') }}</button>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" onclick="update()">Save changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('modals.Close') }}</button>
+                            <button type="submit" class="btn btn-primary" onclick="update()">{{ __('modals.Save changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -121,35 +121,9 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-success">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-check-line h1"></i>
-                        <h4 class="mt-2">Well Done!</h4>
-                        <p class="mt-3">Your process done with successfully</p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.success')
 
-    <div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-filled bg-danger">
-                <div class="modal-body p-4">
-                    <div class="text-center">
-                        <i class="ri-close-circle-line h1"></i>
-                        <h4 class="mt-2">Error!</h4>
-                        <p class="mt-3"></p>
-                        <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    @include('modals.error')
 
 
 @endsection
