@@ -38,13 +38,13 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('home', ['locale' => app()->getLocale()]);
     }
 
     public function login(Request $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->input('remember-me', false))) {
-            return redirect()->route('home');
+            return redirect()->route('home',['locale' => app()->getLocale()]);
         }else{
             return redirect()->route('auth')->withErrors(['email' => 'Invalid credentials', 'password' => 'Invalid credentials']);
         }

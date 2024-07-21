@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('login', [\App\Http\Controllers\AuthController::class, 'auth'])->name('auth');
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::permanentRedirect('/', '/'.app()->getLocale());
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -25,7 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('types', [\App\Http\Controllers\TypeController::class,'index'])->name('types');
     });
 
-    Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
     Route::get('/clear/notifications',[ \App\Http\Controllers\HomeController::class, 'clearNotifications'])->name('clear.notifies');
     Route::post('/profile/update', [\App\Http\Controllers\UserController::class,'updateProfile'])->name('profile.update');
