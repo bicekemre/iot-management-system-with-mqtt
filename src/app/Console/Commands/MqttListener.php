@@ -33,7 +33,7 @@ class MqttListener extends Command
     public function handle()
     {
         $mqtt = MQTT::connection();
-        $mqtt->subscribe('topic/foo', function ($topic, $message) {
+        $mqtt->subscribe('kadirmercan5/topic', function ($topic, $message) {
             try {
                 $json = json_decode($message);
 
@@ -58,8 +58,8 @@ class MqttListener extends Command
                             if ($val->value < $min || $val->value > $max) {
                                 $notification = new Notifications();
                                 $notification->type = 'device';
-                                $notification->notifable_type = Devices::class;
-                                $notification->notifable_id = $device->id;
+                                $notification->notifiable_type = Devices::class;
+                                $notification->notifiable_id = $device->id;
                                 $notification->save();
                             }
 

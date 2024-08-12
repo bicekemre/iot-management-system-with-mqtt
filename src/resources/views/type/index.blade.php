@@ -150,10 +150,10 @@
             propertyCount++;
             const newPropertyDiv = `
             <div class="mb-3">
-                <label for="property-name-${propertyCount}" class="form-label">Property Name ${propertyCount}</label>
+                <label for="property-name-${propertyCount}" class="form-label">{{ __('type.Property Name') }} ${propertyCount}</label>
                 <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
                 <input type="text" class="form-control" id="property-name-${propertyCount}" name="property-name-${propertyCount}">
-               <label for=ideal-values" class="form-label">Ideal Values</label>
+               <label for=ideal-values" class="form-label">Ideal</label>
                 <input type="number" id="min-value-${propertyCount}" class="form-control mb-1" placeholder="min">
                 <input type="number" id="max-value-${propertyCount}" class="form-control mb-1" placeholder="max">
             </div>
@@ -179,10 +179,10 @@
                         const propertyField = `
                         <div class="mb-3">
                             <input type="hidden" id="edit-property-id-${index}" value="${property.id}">
-                            <label for="edit-property-name-${index}" class="form-label">Property Name ${index + 1}</label>
+                            <label for="edit-property-name-${index}" class="form-label">{{ __('type.Property Name') }} ${index + 1}</label>
                             <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
                             <input type="text" class="form-control" id="edit-property-name-${index}" name="property-name-${index}" value="${property.name}">
-                            <label for=edit-min-value" class="form-label">Ideal Values</label>
+                            <label for=edit-min-value" class="form-label">Ideal </label>
                             <input type="number" id="edit-min-value-${index}" class="form-control mb-1" placeholder="min" value="${property.min}">
                             <input type="number" id="edit-max-value-${index}" class="form-control mb-1" placeholder="max" value="${property.max}">
                         </div>
@@ -206,12 +206,12 @@
             const propertyField = `
             <div class="mb-3">
                 <input type="hidden" id="edit-property-id-${index}" value="">
-                <label for="edit-property-name-${index}" class="form-label">Property Name ${index + 1}</label>
+                <label for="edit-property-name-${index}" class="form-label">{{ __('type.Property Name') }} ${index + 1}</label>
                 <button type="button" class="btn btn-link p-0" onclick="removeProperty(this)">    <i class="bi bi-x-circle"></i></button>
 
                 <input type="text" class="form-control" id="edit-property-name-${index}" name="property-name-${index}">
 
-                <label for=edit-min-value" class="form-label">Ideal Values</label>
+                <label for=edit-min-value" class="form-label">Ideal </label>
                 <input type="number" id="edit-min-value-${index}" class="form-control mb-1" placeholder="min">
                 <input type="number" id="edit-max-value-${index}" class="form-control mb-1" placeholder="max">
             </div>
