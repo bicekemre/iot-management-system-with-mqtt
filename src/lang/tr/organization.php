@@ -10,5 +10,6 @@ return [
     'Add Organization' => 'Organizasyon Ekle',
     'Organizations' => 'Organizasyonlar',
     'Edit Organization' => 'Organizasyonu Düzenle',
+    'Action' => 'Eylemler',
 ];
 

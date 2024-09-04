@@ -25,20 +25,20 @@
 <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-xxl-8 col-lg-10">
+            <div class="col-xxl-6 col-lg-12">
                 <div class="card overflow-hidden">
-                    <div class="row g-0">
-                        <div class="col-lg-6 d-none d-lg-block p-2">
-                            <img src="{{ asset('assets/images/auth-img.jpg') }}" alt="" class="img-fluid rounded h-100">
-                        </div>
-                        <div class="col-lg-6">
+                    <div class="row g-0 justify-content-center">
+{{--                        <div class="col-lg-6 d-none d-lg-block p-2">--}}
+{{--                            <img src="{{ asset('canovate-login.jpg') }}" alt="" class="img-fluid rounded h-100">--}}
+{{--                        </div>--}}
+                        <div class="col-lg-12">
                             <div class="d-flex flex-column h-100">
                                 <div class="auth-brand p-4">
                                     <a href="" class="logo-light">
-                                        <img src="{{ asset('assets/images/logo.png') }}" alt="logo" height="22">
+                                        <img src="{{ asset('canovate.png') }}" alt="logo" height="22">
                                     </a>
                                     <a href="" class="logo-dark">
-                                        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="dark logo" height="22">
+                                        <img src="{{ asset('canovate.png') }}" alt="dark logo" >
                                     </a>
                                 </div>
                                 <div class="p-4 my-auto">
@@ -55,7 +55,7 @@
                                                    placeholder="Enter your email">
                                         </div>
                                         <div class="mb-3">
-                                            <a href="auth-forgotpw.html" class="text-muted float-end"><small>{{ __('auth.Forgot Password') }}</small></a>
+{{--                                            <a href="auth-forgotpw.html" class="text-muted float-end"><small>{{ __('auth.Forgot Password') }}</small></a>--}}
                                             <label for="password" class="form-label">{{ __('auth.Password') }}</label>
                                             <input class="form-control" type="password" required="" id="password" name="password"
                                                    placeholder="Enter your password">
@@ -97,7 +97,7 @@
 
 <footer class="footer footer-alt fw-medium">
         <span class="text-dark">
-            <script>document.write(new Date().getFullYear())</script> © Velonic - Theme by Techzaa
+            <script>document.write(new Date().getFullYear())</script> © Canovate
         </span>
 </footer>
 <!-- Vendor js -->

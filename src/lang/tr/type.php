@@ -4,7 +4,7 @@ return [
     'Updated At' => 'Güncellenme Tarihi',
     'Created At' => 'Oluşturulma Tarihi',
     'Actions' => 'Eylemler',
-    'Type' => 'Tür',
+    'Type' => 'Cihaz Türleri',
     'Add Type' => 'Tür Ekle',
     'Add Property' => 'Özellik Ekle',
     'Edit Type' => 'Türü Düzenle',

@@ -303,6 +303,14 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        $(document).ready(function() {
+            // Varsayılan olarak seçili olacak ID'yi belirleyin
+            var defaultDeviceId = 7; // Backend'den gelen bir değer olabilir
+
+            // Seçili değeri ayarla
+            $('#device').val(defaultDeviceId).trigger('change');
+
+        });
 
         function device(deviceId) {
             $.ajax({

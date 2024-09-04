@@ -12,5 +12,5 @@ return [
     'Users' => 'Users',
     'Organizations' => 'Organizations',
     'Edit Role' => 'Edit Role',
-
+    'Devices' => 'Devices',
 ];

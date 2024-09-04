@@ -4,7 +4,6 @@
     <li class="breadcrumb-item"><a href="{{ route('users',  ['locale' => app()->getLocale()]) }}">{{ __('role.Users') }}</a></li>
     <li class="breadcrumb-item active">{{ __('role.Roles') }}</li>
 @endsection
-@section('title', 'Users')
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

@@ -45,29 +45,44 @@
                 <!-- Topbar Brand Logo -->
                 <div class="logo-topbar">
                     <!-- Logo light -->
-{{--                    <a href="{{ route('home') }}" class="logo-light">--}}
-{{--                            <span class="logo-lg">--}}
-{{--                                <img src="assets/images/logo.png" alt="logo">--}}
-{{--                            </span>--}}
-{{--                        <span class="logo-sm">--}}
-{{--                                <img src="assets/images/logo-sm.png" alt="small logo">--}}
-{{--                            </span>--}}
-{{--                    </a>--}}
+                    <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="logo-light">
+                            <span class="logo-lg">
+                                <img src="{{ asset('logo.png') }}"  alt="logo">
+                            </span>
+                        <span class="logo-sm">
+                                <img src="{{ asset('logo.png') }}" alt="small logo">
+                            </span>
+                    </a>
 
-{{--                    <!-- Logo Dark -->--}}
-{{--                    <a href="index.html" class="logo-dark">--}}
-{{--                            <span class="logo-lg">--}}
-{{--                                <img src="assets/images/logo-dark.png" alt="dark logo">--}}
-{{--                            </span>--}}
-{{--                        <span class="logo-sm">--}}
-{{--                                <img src="assets/images/logo-sm.png" alt="small logo">--}}
-{{--                            </span>--}}
-{{--                    </a>--}}
+                    <!-- Logo Dark -->
+                    <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="logo-dark">
+                            <span class="logo-lg">
+                                <img src="{{ asset('logo.png') }}" alt="dark logo">
+                            </span>
+                        <span class="logo-sm">
+                                <img src="{{ asset('logo.png') }}" alt="small logo">
+                            </span>
+                    </a>
+
+
                 </div>
+                <div class="topbar-menu d-flex justify-content-center">
+                    <a href="tel: +90 216 484 2222" class="mx-3 d-flex align-items-center">
+                        <i class="ri-phone-fill me-2"></i>+90 216 484 2222
+                    </a>
 
+                    <a href="mailto: info@canovate.com" class="mx-3 d-flex align-items-center">
+                        <i class="ri-mail-line me-2"></i>info@canovate.com
+                    </a>
+
+                    <a href="#" class="mx-3 d-flex align-items-center">
+                        <i class="ri-home-2-fill me-2"></i><strong>Headquarters: </strong>
+                        İstanbul-TÜRKİYE
+                    </a>
+                </div>
                 <!-- Sidebar Menu Toggle Button -->
                 <button class="button-toggle-menu">
-                    <i class="ri-menu-line"></i>
+                    <i class="ri-phone-fill"></i>
                 </button>
 
                 <!-- Horizontal Menu Toggle Button -->
@@ -275,7 +290,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <script>document.write(new Date().getFullYear())</script> © Velonic - Theme by <b>Techzaa</b>
+                        <script>document.write(new Date().getFullYear())</script> ©  <b>Canovate</b>
                     </div>
                 </div>
             </div>

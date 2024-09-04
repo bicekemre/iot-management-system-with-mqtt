@@ -12,4 +12,5 @@ return [
     'Users' => 'Kullanıcılar',
     'Organizations' => 'Organizasyonlar',
     'Edit Role' => 'Rolü Düzenle',
+    'Devices' => 'Cihazlar',
 ];

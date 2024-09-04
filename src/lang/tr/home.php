@@ -9,6 +9,6 @@ return [
     'Device Name' => 'Cihaz Adı',
     'Device Graphic' => 'Cihaz Grafiği',
     'Name' => 'Ad',
-    'Settings' => 'Ayarlar',
+    'settings' => 'Ayarlar',
 ];
 

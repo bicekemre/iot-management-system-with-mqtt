@@ -10,4 +10,5 @@ return [
     'Add Organization' => 'Add Organization',
     'Organizations' => 'Organizations',
     'Edit Organization' => 'Edit Organization',
+    'Action' => 'Action',
 ];

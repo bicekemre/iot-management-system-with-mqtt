@@ -9,7 +9,7 @@ return [
     'Device Name' => 'Device Name',
     'Device Graphic' => 'Device Graphic',
     'Name' => 'Name',
-    'Settings' => 'Settings',
+    'settings' => 'Settings',
 
 
 

@@ -3,7 +3,6 @@
     <li class="breadcrumb-item"><a href="{{ route('home', ['locale' => app()->getLocale()]) }}">{{ __('home.Home') }}</a></li>
     <li class="breadcrumb-item active">{{ __('type.Type') }}</li>
 @endsection
-@section('title', 'type')
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -20,7 +19,10 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4 class="header-title">{{ __('type.Type') }}</h4>
-
+                    <div class="alert alert-warning"
+                         role="alert">
+                        Burada Cihazları eklemeden önce cihazın türünü belirleyip cihazdan gelecek parametrelerin yazıp ideal değerleri yazılır
+                    </div>
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#standard-modal">{{ __('type.Add Type') }}
