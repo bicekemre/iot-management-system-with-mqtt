@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully responsive admin theme which can be used to build CRM, CMS,ERP etc." name="description" />
     <meta content="Techzaa" name="author" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -245,6 +245,21 @@
                             </li>
 
                     </ul>
+
+
+                </div>
+                <div>
+                    @if(Cookie::get('organization_id'))
+                        {{ \App\Models\Organization::query()->findOrFail(Cookie::get('organization_id'))->name }}
+                        <button type="button" class="btn btn-link p-0" onclick="removeCookie()">  <i class="bi bi-x-circle"></i></button>
+                    @else
+                        <select id="organization" onchange="setCookie()" name="organization" class="form-control">
+                            <option value="NULL">{{ __('users.Select Organization') }}</option>
+                            @foreach(\App\Models\Organization::all() as $organization)
+                                <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
                 </div>
             </nav>
         </div>
@@ -512,7 +527,48 @@
 <!-- Dashboard App js -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
 @yield('script')
+<script>
+    function removeCookie()
+    {
+        $.ajax({
+            url: '/organization/removecookie',
+            method: 'post',
+            success: function (  ){
+                window.location.reload();
+            }
+        });
+    }
+    function setCookie()
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var organization = $('#organization').val();
 
+        $.ajax({
+            url: '/organization/setcookie',
+            method: 'post',
+            data: {organization: organization },
+            success: function (data){
+                window.location.reload();
+                console.log(data);
+            }
+        });
+    }
+
+
+
+    $(document).ready(function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+</script>
 
 <!-- App js -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>

@@ -63,5 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/type/update/{id}', [\App\Http\Controllers\TypeController::class, 'update'])->name('type.update');
     Route::delete('/type/delete/{id}', [\App\Http\Controllers\TypeController::class, 'delete'])->name('type.delete');
 
+    Route::post('/organization/setcookie', [\App\Http\Controllers\OrganizationController::class,'setCookie'])->name('organization.setcookie');
+    Route::post('/organization/removecookie', [\App\Http\Controllers\OrganizationController::class,'removeCookie'])->name('organization.removecookie');
+
 });
 

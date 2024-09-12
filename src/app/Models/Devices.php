@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,5 +32,10 @@ class Devices extends Model
     public function value()
     {
         return $this->hasMany(Value::class, 'device_id', 'id');
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope());
     }
 }

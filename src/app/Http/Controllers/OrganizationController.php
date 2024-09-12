@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class OrganizationController extends Controller
 {
@@ -76,5 +77,19 @@ class OrganizationController extends Controller
         $organization->delete();
 
         return response()->json($organization);
+    }
+
+    public function setCookie(Request $request)
+    {
+        $cookie = Cookie::queue('organization_id', $request->organization, 60);
+
+        return response()->json($cookie);
+    }
+
+    public function removeCookie(Request $request)
+    {
+        $cookie = Cookie::queue(Cookie::forget('organization_id'));
+
+        return response()->json($cookie);
     }
 }

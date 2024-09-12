@@ -20,39 +20,45 @@
 @section('content')
     <div class="row">
         <div class="col-xxl-3 col-sm-6">
-            <div class="card widget-flat text-bg-pink">
-                <div class="card-body">
-                    <div class="float-end">
-                        <i class="ri-eye-line widget-icon"></i>
+            <a href="{{ route('devices', ['locale' => app()->getLocale()]) }}">
+                <div class="card widget-flat text-bg-pink">
+                    <div class="card-body">
+                        <div class="float-end">
+                            <i class="ri-eye-line widget-icon"></i>
+                        </div>
+                        <h6 class="text-uppercase mt-0" title="Devices">{{ __('home.Devices') }}</h6>
+                        <h2 class="my-2">{{ $devices->count() }}</h2>
                     </div>
-                    <h6 class="text-uppercase mt-0" title="Devices">{{ __('home.Devices') }}</h6>
-                    <h2 class="my-2">{{ $devices->count() }}</h2>
                 </div>
-            </div>
+            </a>
         </div> <!-- end col-->
 
         <div class="col-xxl-3 col-sm-6">
-            <div class="card widget-flat text-bg-purple">
-                <div class="card-body">
-                    <div class="float-end">
-                        <i class="ri-wallet-2-line widget-icon"></i>
+            <a href="{{ route('users', ['locale' => app()->getLocale()]) }}">
+                <div class="card widget-flat text-bg-purple">
+                    <div class="card-body">
+                        <div class="float-end">
+                            <i class="ri-wallet-2-line widget-icon"></i>
+                        </div>
+                        <h6 class="text-uppercase mt-0" title="Users">{{ __('home.Users') }}</h6>
+                        <h2 class="my-2">{{ \App\Models\User::all()->count() }}</h2>
                     </div>
-                    <h6 class="text-uppercase mt-0" title="Users">{{ __('home.Users') }}</h6>
-                    <h2 class="my-2">{{ \App\Models\User::all()->count() }}</h2>
                 </div>
-            </div>
+            </a>
         </div> <!-- end col-->
 
         <div class="col-xxl-3 col-sm-6">
-            <div class="card widget-flat text-bg-info">
-                <div class="card-body">
-                    <div class="float-end">
-                        <i class="ri-shopping-basket-line widget-icon"></i>
+            <a href="{{ route('organizations', ['locale' => app()->getLocale()]) }}">
+                <div class="card widget-flat text-bg-info">
+                    <div class="card-body">
+                        <div class="float-end">
+                            <i class="ri-shopping-basket-line widget-icon"></i>
+                        </div>
+                        <h6 class="text-uppercase mt-0" title="Organizations">{{ __('home.Organizations') }}</h6>
+                        <h2 class="my-2">{{ \App\Models\Organization::all()->count() }}</h2>
                     </div>
-                    <h6 class="text-uppercase mt-0" title="Organizations">{{ __('home.Organizations') }}</h6>
-                    <h2 class="my-2">{{ \App\Models\Organization::all()->count() }}</h2>
                 </div>
-            </div>
+            </a>
         </div> <!-- end col-->
 
         <div class="col-xxl-3 col-sm-6">

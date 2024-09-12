@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -26,8 +27,14 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::query()->orderBy('id', 'desc')
-        ->paginate(
+        $users = User::query()->orderBy('id', 'desc');
+
+        $organization_id = Cookie::get('organization_id');
+        if ($organization_id){
+            $users = $users->where('organization_id', $organization_id);
+        }
+
+        $users = $users->paginate(
             perPage: 10,
             page: 1
         );
@@ -46,6 +53,11 @@ class UserController extends Controller
             $search = \request()->get('search');
             $users->where('name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
+        }
+
+        $organization_id = Cookie::get('organization_id');
+        if ($organization_id){
+            $users = $users->where('organization_id', $organization_id);
         }
 
         $users = $users->paginate(

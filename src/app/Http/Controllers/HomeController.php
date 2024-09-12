@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Devices;
 use App\Models\Notifications;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,8 +12,8 @@ class HomeController extends Controller
     public function home()
     {
         $devices = Devices::all();
-
-        return view('home.index', compact('devices'));
+        $organizations = Organization::all();
+        return view('home.index', compact('devices', 'organizations'));
     }
 
     public function profile()

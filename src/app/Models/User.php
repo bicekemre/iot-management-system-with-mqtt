@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Organization::class, 'id', 'organization_id');
     }
+
+//    protected static function booted()
+//    {
+//        static::addGlobalScope(new OrganizationScope());
+//    }
 }
