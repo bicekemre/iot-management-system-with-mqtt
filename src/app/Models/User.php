@@ -7,6 +7,7 @@ use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -62,8 +63,28 @@ class User extends Authenticatable
         return $this->hasOne(Organization::class, 'id', 'organization_id');
     }
 
-//    protected static function booted()
-//    {
-//        static::addGlobalScope(new OrganizationScope());
-//    }
+    protected static function booted()
+    {
+        $user = Auth::user();
+        if (Auth::check()) {
+            if ($user->is_admin == 0) {
+                static::addGlobalScope(new OrganizationScope());
+            }
+        }
+    }
+
+
+    public function check($permission)
+    {
+        $user = Auth::user();
+        if ($user->is_admin == 1 ){
+            return true;
+        }
+
+        $role =  $user->role;
+        if ($role->hasPermission($permission)){
+            return true;
+        }
+        return false;
+    }
 }

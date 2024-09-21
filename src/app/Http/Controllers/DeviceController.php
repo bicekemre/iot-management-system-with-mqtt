@@ -96,4 +96,17 @@ class DeviceController extends Controller
 
         return response()->json($device);
     }
+
+
+    public function start()
+    {
+        dispatch(new MqttConnection());
+        return response()->json('status', 1);
+    }
+
+    public function stop()
+    {
+        dispatch(new MqttConnection(true));
+        return response()->json('status', 0);
+    }
 }

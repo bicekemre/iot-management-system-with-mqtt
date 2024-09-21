@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PermissionMiddleware
 {
@@ -15,6 +17,12 @@ class PermissionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        $user = $request->user();
+        if ($user->is_admin == 1) {
+            return $next($request);
+        }else{
+            abort(403);
+        }
+
     }
 }

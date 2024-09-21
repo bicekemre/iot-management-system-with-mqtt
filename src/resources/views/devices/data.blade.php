@@ -26,12 +26,16 @@
             <td>{{ $device->updated_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
             <td>{{ $device->created_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
             <td>
+                @if((new \App\Models\User())->check('devices_delete'))
                 <a href="" class="text-reset fs-16 px-1 delete-device" data-id="{{ $device->id }}">
                     <i class="ri-delete-bin-2-line"></i>
                 </a>
+                @endif
+                @if((new \App\Models\User())->check('devices_update'))
                 <a href="#" class="text-reset fs-16 px-1 edit-device" onclick="setUser({{ $device->id }})" data-bs-toggle="modal" data-bs-target="#edit-device-modal">
                     <i class="ri-edit-2-fill"></i>
                 </a>
+                @endif
             </td>
         </tr>
     @endforeach

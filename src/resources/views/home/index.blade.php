@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('head')
-    <link href="assets/vendor/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendor/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <style>
         .weather-card {
             display: grid;
@@ -18,6 +18,7 @@
     </style>
 @endsection
 @section('content')
+    @if((new \App\Models\User())->check('superadmin'))
     <div class="row">
         <div class="col-xxl-3 col-sm-6">
             <a href="{{ route('devices', ['locale' => app()->getLocale()]) }}">
@@ -73,7 +74,7 @@
             </div>
         </div> <!-- end col-->
     </div>
-
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -150,7 +151,7 @@
                                     <td>{{ $device->name }}</td>
                                     <td>{{ $device->uuid }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-info" onclick="getDevice({{$device->id}})"data-bs-toggle="modal" data-bs-target="#device-modal">See Device</button>
+                                        <button type="button" class="btn btn-info" onclick="getDevice({{$device->id}})"data-bs-toggle="modal" data-bs-target="#device-modal">{{ __('devices.See Device') }}</button>
                                     </td>
                                     <td>{{ $device->created_at->timezone('GMT+3')->format('d-m-Y, H:i')}}</td>
 

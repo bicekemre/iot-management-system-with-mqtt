@@ -40,10 +40,11 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h4 class="header-title">{{ __('devices.Devices') }}</h4>
 
-
+                    @if((new \App\Models\User())->check('devices_create'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#standard-modal">{{ __('devices.Add Device') }}
                     </button>
+                    @endif
                 </div>
             </div>
 
@@ -72,6 +73,7 @@
 
         </div> <!-- end card -->
     </div><!-- end col-->
+
 
     <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel"
          aria-hidden="true">

@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Horizontal Layout | Velonic - Bootstrap 5 Admin & Dashboard Template</title>
+    <title>Our Innovative and Advanced Technology - Canovate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully responsive admin theme which can be used to build CRM, CMS,ERP etc." name="description" />
+    <meta content="Canovate" name="description" />
     <meta content="Techzaa" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
 
 
@@ -38,7 +38,7 @@
 <div class="wrapper">
 
     <!-- ========== Topbar Start ========== -->
-    <div class="navbar-custom">
+    <div class="navbar-custom dark">
         <div class="topbar container-fluid">
             <div class="d-flex align-items-center gap-1">
 
@@ -63,8 +63,6 @@
                                 <img src="{{ asset('logo.png') }}" alt="small logo">
                             </span>
                     </a>
-
-
                 </div>
                 <div class="topbar-menu d-flex justify-content-center">
                     <a href="tel: +90 216 484 2222" class="mx-3 d-flex align-items-center">
@@ -82,7 +80,7 @@
                 </div>
                 <!-- Sidebar Menu Toggle Button -->
                 <button class="button-toggle-menu">
-                    <i class="ri-phone-fill"></i>
+                    <i class="ri-menu-line"></i>
                 </button>
 
                 <!-- Horizontal Menu Toggle Button -->
@@ -140,15 +138,15 @@
 
                         <div style="max-height: 300px;" data-simplebar>
                             @foreach($notifications->take(5) as $notification)
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-primary-subtle">
-                                    <i class="mdi mdi-comment-account-outline text-primary"></i>
-                                </div>
-                                <p class="notify-details">{{ $notification->data }}
-                                    <small class="noti-time">{{ $notification->created_at }}</small>
-                                </p>
-                            </a>
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <div class="notify-icon bg-primary-subtle">
+                                        <i class="mdi mdi-comment-account-outline text-primary"></i>
+                                    </div>
+                                    <p class="notify-details">{{ $notification->data }}
+                                        <small class="noti-time">{{ $notification->created_at }}</small>
+                                    </p>
+                                </a>
                             @endforeach
                         </div>
                     </div>
@@ -184,11 +182,11 @@
                             <span>{{ __('layout.My Account') }}</span>
                         </a>
 
-{{--                        <!-- item-->--}}
-{{--                        <a href="pages-profile.html" class="dropdown-item">--}}
-{{--                            <i class="ri-settings-4-line fs-18 align-middle me-1"></i>--}}
-{{--                            <span>Settings</span>--}}
-{{--                        </a>--}}
+                        {{--                        <!-- item-->--}}
+                        {{--                        <a href="pages-profile.html" class="dropdown-item">--}}
+                        {{--                            <i class="ri-settings-4-line fs-18 align-middle me-1"></i>--}}
+                        {{--                            <span>Settings</span>--}}
+                        {{--                        </a>--}}
 
                         <!-- item-->
                         <a href="{{ route('logout') }}" class="dropdown-item">
@@ -196,6 +194,11 @@
                             <span>{{ __('layout.Logout') }}</span>
                         </a>
                     </div>
+                </li>
+                <li class="d-none d-sm-inline-block">
+                    <a class="nav-link" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas">
+                        <i class="ri-settings-3-line fs-22"></i>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -214,51 +217,59 @@
                             </a>
                         </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('users', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ri-user-fill">{{ __('layout.Users') }}</i>
-                                </a>
-                            </li>
+                        <li class="nav-item dropdown">
+                            @if((new \App\Models\User())->check('users_read'))
+                            <a class="nav-link dropdown-toggle arrow-none" href="{{ route('users', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="ri-user-fill">{{ __('layout.Users') }}</i>
+                            </a>
+                            @endif
+                        </li>
 
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
+                            @if((new \App\Models\User())->check('superadmin'))
                                 <a class="nav-link dropdown-toggle arrow-none" href="{{ route('roles', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
                                     {{ __('layout.Roles') }}
                                 </a>
-                            </li>
+                            @endif
+                        </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('organizations', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
-                                    {{ __('layout.Organizations') }}
-                                </a>
-                            </li>
+                        <li class="nav-item dropdown">
+                            @if((new \App\Models\User())->check('organizations_read'))
+                            <a class="nav-link dropdown-toggle arrow-none" href="{{ route('organizations', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{ __('layout.Organizations') }}
+                            </a>
+                            @endif
+                        </li>
 
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
+                            @if((new \App\Models\User())->check('devices_read'))
                                 <a class="nav-link dropdown-toggle arrow-none" href="{{ route('devices', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
                                     {{ __('layout.Devices') }}
                                 </a>
-                            </li>
-
+                            @endif
+                        </li>
+                        @if((new \App\Models\User())->check('superadmin'))
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="{{ route('types', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
                                     {{ __('layout.Device Type') }}
                                 </a>
                             </li>
-
+                        @endif
                     </ul>
-
-
                 </div>
                 <div>
-                    @if(Cookie::get('organization_id'))
-                        {{ \App\Models\Organization::query()->findOrFail(Cookie::get('organization_id'))->name }}
-                        <button type="button" class="btn btn-link p-0" onclick="removeCookie()">  <i class="bi bi-x-circle"></i></button>
-                    @else
-                        <select id="organization" onchange="setCookie()" name="organization" class="form-control">
-                            <option value="NULL">{{ __('users.Select Organization') }}</option>
-                            @foreach(\App\Models\Organization::all() as $organization)
-                                <option value="{{ $organization->id }}">{{ $organization->name }}</option>
-                            @endforeach
-                        </select>
+                    @if((new \App\Models\User())->check('superadmin'))
+                        @if(Cookie::get('organization_id'))
+                            {{ \App\Models\Organization::query()->findOrFail(Cookie::get('organization_id'))->name }}
+                            <button type="button" class="btn btn-link p-0" onclick="removeCookie()">  <i class="bi bi-x-circle"></i></button>
+                        @else
+                            <select id="organization" onchange="setCookie()" name="organization" class="form-control">
+                                <option value="NULL">{{ __('users.Select Organization') }}</option>
+                                @foreach(\App\Models\Organization::all() as $organization)
+                                    <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
                     @endif
                 </div>
             </nav>
@@ -567,8 +578,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        $('#reset-layout').click();
     });
 </script>
+
 
 <!-- App js -->
 <script src="{{ asset('assets/js/app.min.js') }}"></script>

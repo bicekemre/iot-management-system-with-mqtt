@@ -5,6 +5,7 @@ namespace App\Models\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 class OrganizationScope implements Scope
 {
@@ -17,6 +18,11 @@ class OrganizationScope implements Scope
 
         if ($organization_id){
             $builder->where('organization_id', $organization_id);
+        }
+        $user = Auth::user();
+
+        if ($user->is_admin == 0){
+            $builder->where('organization_id', $user->organization_id);
         }
     }
 }
