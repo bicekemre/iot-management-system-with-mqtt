@@ -21,7 +21,7 @@
                     <h4 class="header-title">{{ __('type.Type') }}</h4>
                     <div class="alert alert-warning"
                          role="alert">
-                        Burada Cihazları eklemeden önce cihazın türünü belirleyip cihazdan gelecek parametrelerin yazıp ideal değerleri yazılır
+                        {{ __('type.Explain') }}
                     </div>
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"

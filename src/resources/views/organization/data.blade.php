@@ -29,6 +29,9 @@
                 <a href="#" class="text-reset fs-16 px-1 edit-organization" data-id="{{ $organization->id }}" data-bs-toggle="modal" data-bs-target="#edit-organization-modal">
                     <i class="ri-edit-2-fill"></i>
                 </a>
+                <a href="" class="text-reset fs-16 px-1" onclick="setCookie({{ $organization->id }})">
+                    <i class="ri-search-eye-line"></i>
+                </a>
             </td>
         </tr>
     @endforeach

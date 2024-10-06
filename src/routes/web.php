@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('organizations', [\App\Http\Controllers\OrganizationController::class,'index'])->name('organizations');
 
         Route::get('types', [\App\Http\Controllers\TypeController::class,'index'])->name('types');
+
+        Route::get('/assignments',[\App\Http\Controllers\AssignmentsController::class, 'index'])->name('assignments');
     });
 
 
@@ -49,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/organizations/edit/{id}', [\App\Http\Controllers\OrganizationController::class, 'edit'])->name('organizations.edit');
     Route::post('/organizations/update/{id}', [\App\Http\Controllers\OrganizationController::class, 'update'])->name('organizations.update');
     Route::delete('/organizations/delete/{id}', [\App\Http\Controllers\OrganizationController::class, 'delete'])->name('organizations.delete');
+    Route::post('/organization/setcookie', [\App\Http\Controllers\OrganizationController::class,'setCookie'])->name('organization.setcookie');
+    Route::post('/organization/removecookie', [\App\Http\Controllers\OrganizationController::class,'removeCookie'])->name('organization.removecookie');
 
     Route::get('devices/items/{offset}/{limit}', [\App\Http\Controllers\DeviceController::class, 'items'])->name('device.items');
     Route::get('devices/item/{id}', [\App\Http\Controllers\DeviceController::class, 'item'])->name('device.item');
@@ -63,8 +67,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/type/update/{id}', [\App\Http\Controllers\TypeController::class, 'update'])->name('type.update');
     Route::delete('/type/delete/{id}', [\App\Http\Controllers\TypeController::class, 'delete'])->name('type.delete');
 
-    Route::post('/organization/setcookie', [\App\Http\Controllers\OrganizationController::class,'setCookie'])->name('organization.setcookie');
-    Route::post('/organization/removecookie', [\App\Http\Controllers\OrganizationController::class,'removeCookie'])->name('organization.removecookie');
-
+    Route::get('/assignments/items/{offset}/{limit}', [\App\Http\Controllers\AssignmentsController::class, 'items'])->name('assignments.items');
+    Route::get('/assignments/set/{id}', [\App\Http\Controllers\AssignmentsController::class, 'set'])->name('assignments.set');
+    Route::post('/assignments/create', [\App\Http\Controllers\AssignmentsController::class,'create'])->name('assignments.create');
+    Route::get('/assignments/edit/{id}', [\App\Http\Controllers\AssignmentsController::class, 'edit'])->name('assignments.edit');
+    Route::post('/assignments/update/{id}', [\App\Http\Controllers\AssignmentsController::class, 'update'])->name('assignments.update');
+    Route::delete('/assignments/delete/{id}', [\App\Http\Controllers\AssignmentsController::class, 'delete'])->name('assignments.delete');
 });
 

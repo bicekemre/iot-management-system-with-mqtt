@@ -11,5 +11,6 @@ return [
     'Organizations' => 'Organizasyonlar',
     'Devices' => 'Cihazlar',
     'Device Type' => 'Cihaz Türü',
+    'Assignments' => 'Atamalar',
 ];
 

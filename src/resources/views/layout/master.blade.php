@@ -255,6 +255,14 @@
                                 </a>
                             </li>
                         @endif
+
+                        @if((new \App\Models\User())->check('superadmin'))
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="{{ route('assignments', ['locale' => app()->getLocale()]) }}" id="topnav-dashboards" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('layout.Assignments') }}
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <div>
@@ -263,7 +271,7 @@
                             {{ \App\Models\Organization::query()->findOrFail(Cookie::get('organization_id'))->name }}
                             <button type="button" class="btn btn-link p-0" onclick="removeCookie()">  <i class="bi bi-x-circle"></i></button>
                         @else
-                            <select id="organization" onchange="setCookie()" name="organization" class="form-control">
+                            <select id="organization" onchange="setCookie(this.value)" name="organization" class="form-control">
                                 <option value="NULL">{{ __('users.Select Organization') }}</option>
                                 @foreach(\App\Models\Organization::all() as $organization)
                                     <option value="{{ $organization->id }}">{{ $organization->name }}</option>
@@ -272,6 +280,7 @@
                         @endif
                     @endif
                 </div>
+
             </nav>
         </div>
     </div>
@@ -549,14 +558,14 @@
             }
         });
     }
-    function setCookie()
+    function setCookie(organization)
     {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var organization = $('#organization').val();
+
 
         $.ajax({
             url: '/organization/setcookie',

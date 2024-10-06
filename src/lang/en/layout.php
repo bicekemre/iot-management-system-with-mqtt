@@ -11,6 +11,6 @@ return [
     'Organizations' => 'Organizations',
     'Devices' => 'Devices',
     'Device Type' => 'Device Type',
-
+    'Assignments' => 'Assignments',
 
 ];

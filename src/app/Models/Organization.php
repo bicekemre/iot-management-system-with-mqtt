@@ -12,12 +12,17 @@ class Organization extends Model
     use HasFactory;
 
 
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    protected static function booted()
+    public function assignments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Assignment::class);
+    }
+
+    protected static function booted(): void
     {
         static::addGlobalScope('organization', function ($builder) {
             $user = Auth::user();
