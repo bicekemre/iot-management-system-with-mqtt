@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\MqttConnection;
+use App\Models\Connection;
 use App\Models\Devices;
 use App\Models\Organization;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class DeviceController extends Controller
 {
@@ -98,15 +101,56 @@ class DeviceController extends Controller
     }
 
 
-    public function start()
+    public function start(Request $request)
     {
-        dispatch(new MqttConnection());
-        return response()->json('status', 1);
+        $commandName = 'php artisan mqtt:listen > /dev/null 2>&1 & echo $!';
+        $topic = $request->input('topic');
+
+        $command = "php artisan $commandName $topic > /dev/null 2>&1 & echo $!";
+        $pid = exec($command);
+
+        $checkConnection = Connection::where('device_id', $request->deviceId)->first();
+
+        if (!$checkConnection)
+        {
+            $connection = new Connection();
+            $connection->device_id = $request->deviceId;
+            $connection->topic = $request->topic;
+            $connection->pid = $pid;
+            $connection->status = 'running';
+            $connection->save();
+        }else{
+            $checkConnection->topic = $request->topic;
+            $checkConnection->status = 'running';
+            $checkConnection->save();
+        }
+
+        return response()->json(['status' => 'Command started', 'pid' => $pid]);
     }
 
-    public function stop()
+    public function stop(Request $request)
     {
-        dispatch(new MqttConnection(true));
-        return response()->json('status', 0);
+        $connectionStatus = Connection::where('device_id', $request->device_id)->first();
+
+        if ($connectionStatus && $connectionStatus->pid) {
+            exec("kill {$connectionStatus->pid}");
+
+            $connectionStatus->update(['status' => 'stopped', 'pid' => null]);
+
+            return response()->json(['status' => 'Command stopped']);
+        }
+
+        return response()->json(['status' => 'Command not running']);
+    }
+
+    public function connectionStatus($id)
+    {
+        $connectionStatus = Connection::where('device_id', $id)->first();
+
+        if ($connectionStatus && $connectionStatus->status === 'running') {
+            return response()->json(['status' => 'running']);
+        } else {
+            return response()->json(['status' => 'stopped']);
+        }
     }
 }

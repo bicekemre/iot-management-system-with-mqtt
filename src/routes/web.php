@@ -60,6 +60,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/devices/edit/{id}', [\App\Http\Controllers\DeviceController::class, 'edit'])->name('devices.edit');
     Route::post('/devices/update/{id}', [\App\Http\Controllers\DeviceController::class, 'update'])->name('devices.update');
     Route::delete('/devices/delete/{id}', [\App\Http\Controllers\DeviceController::class, 'delete'])->name('devices.delete');
+    Route::get('/device/connection-status/{id}', [\App\Http\Controllers\DeviceController::class, 'connectionStatus'])->name('device.connection-status');
+    Route::post('/device/connect', [\App\Http\Controllers\DeviceController::class, 'start'])->name('device.connect');
+    Route::post('/device/disconnect', [\App\Http\Controllers\DeviceController::class, 'stop'])->name('device.disconnect');
 
     Route::get('type/items/{offset}/{limit}', [\App\Http\Controllers\TypeController::class, 'items'])->name('type.items');
     Route::post('type/create', [\App\Http\Controllers\TypeController::class,'create'])->name('type.create');

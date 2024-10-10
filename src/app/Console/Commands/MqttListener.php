@@ -17,7 +17,7 @@ class MqttListener extends Command
      *
      * @var string
      */
-    protected $signature = 'mqtt:listen';
+    protected $signature = 'mqtt:listen {topic}';
 
     /**
      * The console command description.
@@ -26,6 +26,11 @@ class MqttListener extends Command
      */
     protected $description = 'Command description';
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
      */
@@ -33,7 +38,8 @@ class MqttListener extends Command
     public function handle()
     {
         $mqtt = MQTT::connection();
-        $mqtt->subscribe('kadirmercan5/topic', function ($topic, $message) {
+        $mqttTopic = $this->argument('topic');
+        $mqtt->subscribe($mqttTopic, function ($topic, $message) {
             try {
                 $json = json_decode($message);
 

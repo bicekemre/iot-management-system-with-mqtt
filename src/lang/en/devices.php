@@ -37,6 +37,10 @@ return [
     'Sunshine Hours' => 'Sunshine Hours',
     'Rain Probability' => 'Rain Probability',
     'Cloud Cover' => 'Cloud Cover',
+    'Connection' => 'Connection',
+    'Connect' => 'Connect',
+    'Disconnect' => 'Disconnect',
+    'MQTT Connection' => 'MQTT Connection',
 
 
 

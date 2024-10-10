@@ -9,7 +9,7 @@ return [
     'Updated At' => 'Güncellenme Tarihi',
     'Created At' => 'Oluşturulma Tarihi',
     'Action' => 'Eylem',
-    'See Device' => 'Cihazı Görüntüle',
+    'See Device' => 'Görüntüle',
     'Devices' => 'Cihazlar',
     'Add Device' => 'Cihaz Ekle',
     'Search' => 'Ara',
@@ -37,4 +37,8 @@ return [
     'Sunshine Hours' => 'Güneşlenme Saatleri',
     'Rain Probability' => 'Yağmur Olasılığı',
     'Cloud Cover' => 'Bulut Örtüsü',
+    'Connection' => 'Bağlantı',
+    'Connect' => 'Bağlan',
+    'Disconnect' => 'Bağlantıyı Kes',
+    'MQTT Connection' => 'MQTT Bağlantısı',
 ];

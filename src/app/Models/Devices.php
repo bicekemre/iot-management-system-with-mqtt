@@ -38,4 +38,9 @@ class Devices extends Model
     {
         static::addGlobalScope(new OrganizationScope());
     }
+
+    public function connection()
+    {
+        return $this->hasOne(Connection::class, 'device_id', 'id');
+    }
 }
