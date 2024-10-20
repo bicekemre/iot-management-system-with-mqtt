@@ -100,7 +100,6 @@
             success: function ( response ){
 
                 $('#topic').val(response.topic);
-                console.log(deviceId);
 
                 if (response.status === 'running') {
                     $('#start-button').hide();
@@ -124,7 +123,7 @@
                 topic: topic
             },
             success: function ( data ){
-                connectionStatus(device_id);
+                connectionStatus(deviceId);
                 $('#connection-modal').modal('hide');
                 $('#success-alert-modal').modal('show');
             },

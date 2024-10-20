@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Assignment;
 use App\Models\Devices;
 use App\Models\Notifications;
 use App\Models\Property;
+use App\Models\User;
 use App\Models\Value;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -45,12 +47,11 @@ class MqttListener extends Command
 
                 echo sprintf('Received message on topic [%s]: %s', $topic, json_encode($json, JSON_PRETTY_PRINT));
 
-                $device = Devices::query()->where('uuid', $json->uuid)->firstOrFail();
+                $device = Devices::query()->where(['uuid' => $json->uuid])->firstOrFail();
                 foreach ($json as $param => $value) {
                     if ($param !== 'uuid') {
                         try {
                             $property = Property::query()->where('name', $param)->firstOrFail();
-
 
                             $val = new Value();
                             $val->device_id = $device->id;
@@ -62,11 +63,18 @@ class MqttListener extends Command
                             $max = $property->max;
 
                             if ($val->value < $min || $val->value > $max) {
-                                $notification = new Notifications();
-                                $notification->type = 'device';
-                                $notification->notifiable_type = Devices::class;
-                                $notification->notifiable_id = $device->id;
-                                $notification->save();
+                                $assignments = Assignment::query()->where('device_id', $device->id)->get();
+                                foreach ($assignments as $assignment) {
+                                    {
+                                        $notification = new Notifications();
+                                        $notification->type = 'device';
+                                        $notification->notifiable_type = User::class;
+                                        $notification->notifiable_id = $assignment->user_id;
+                                        $notification->user_id = $assignment->user_id;
+                                        $notification->save();
+                                    }
+                                }
+
                             }
 
                             echo sprintf('New value saved for property [%s]: %s', $param, $value);

@@ -122,6 +122,7 @@ class DeviceController extends Controller
         }else{
             $checkConnection->topic = $request->topic;
             $checkConnection->status = 'running';
+            $checkConnection->pid = $pid;
             $checkConnection->save();
         }
 
@@ -148,7 +149,7 @@ class DeviceController extends Controller
         $connectionStatus = Connection::where('device_id', $id)->first();
 
         if ($connectionStatus && $connectionStatus->status === 'running') {
-            return response()->json(['status' => 'running']);
+            return response()->json(['status' => 'running','topic' => $connectionStatus->topic]);
         } else {
             return response()->json(['status' => 'stopped']);
         }

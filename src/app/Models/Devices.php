@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Devices extends Model
 {
@@ -36,7 +37,12 @@ class Devices extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope(new OrganizationScope());
+        $user = Auth::user();
+        if (Auth::check()) {
+            if ($user->is_admin == 0) {
+                static::addGlobalScope(new OrganizationScope());
+            }
+        }
     }
 
     public function connection()
